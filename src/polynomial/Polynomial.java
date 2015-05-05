@@ -2,25 +2,26 @@ package polynomial;
 
 public class Polynomial {
 	private int[] polynomial = {0};
-	private int base;
+	private int basis;
 	
 	public Polynomial(){}
 	
 	public Polynomial(int[] p){
 		this.polynomial = p;
+		this.basis = 2;
 	}
 	
-	public Polynomial(int[] p, int base){
+	public Polynomial(int[] p, int basis){
 		this(p);
-		this.base = base ;
+		this.basis = basis ;
 	}
 	
 	public int getDegree(){
 		return polynomial.length-1;
 	}
 	
-	public int getBase(){
-		return this.base ;
+	public int getBasis(){
+		return this.basis ;
 	}
 
 	public void addElement(int var, int degre) throws Exception{

@@ -31,10 +31,18 @@ public abstract class PolynomialCalculator {
 	 */
 	public static Polynomial multiply(Polynomial p, Polynomial q) throws DifferentBasisException {
 		checkBasis(p, q);
+		int[] result = new int[p.getDegree() + q.getDegree()];
+		for(ini i = 0; i < result.length; i++)
+			result[i] = 0;
 		
+		for(int i = 0; i < p.getDegree(); i++){
+			for(int j = 0; j < q.getDegree(); j++){
+				result[i+j] += p.getValue(i) * q.getValue(j);
+						mod(result[i+j], q.getBasis());
+			}
+		}
 		
-		
-		return null;
+		return new Polynomial(result);
 	}
 
 	public static Polynomial substract(Polynomial p, Polynomial q) throws DifferentBasisException {

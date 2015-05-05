@@ -31,12 +31,12 @@ public abstract class PolynomialCalculator {
 	 */
 	public static Polynomial multiply(Polynomial p, Polynomial q) throws DifferentBasisException {
 		checkBasis(p, q);
-		int[] result = new int[p.getDegree() + q.getDegree()];
-		for(ini i = 0; i < result.length; i++)
+		int[] result = new int[p.getOrder() + q.getOrder()];
+		for(int i = 0; i < result.length; i++)
 			result[i] = 0;
 		
-		for(int i = 0; i < p.getDegree(); i++){
-			for(int j = 0; j < q.getDegree(); j++){
+		for(int i = 0; i < p.getOrder(); i++){
+			for(int j = 0; j < q.getOrder(); j++){
 				result[i+j] += p.getValue(i) * q.getValue(j);
 						mod(result[i+j], q.getBasis());
 			}

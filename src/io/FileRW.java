@@ -2,13 +2,17 @@ package io;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 public abstract class FileRW {
 	public static byte[] readBinaryFile(String sourcePath) {
@@ -54,7 +58,51 @@ public abstract class FileRW {
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} catch (IOException ex) {
-			//ex.printStackTrace();
+			// ex.printStackTrace();
 		}
+	}
+
+	public static void writeTextFile(String text, String filePath) {
+		try {
+			OutputStream ops = new FileOutputStream(filePath);
+			OutputStreamWriter opsw = new OutputStreamWriter(ops);
+			BufferedWriter bw = new BufferedWriter(opsw);
+			bw.write(text);
+			bw.close();
+			opsw.close();
+			ops.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static String readTextFile(String filePath) {
+		String text = null;
+		try {
+			text = "";
+			InputStream ips = new FileInputStream(
+					"src/res/vigenere-germinalChiffre.txt");
+			InputStreamReader ipsr = new InputStreamReader(ips);
+			BufferedReader br = new BufferedReader(ipsr);
+			String line;
+			while ((line = br.readLine()) != null) {
+				text += line + "\n";
+			}
+			br.close();
+			ipsr.close();
+			ips.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return text;
 	}
 }

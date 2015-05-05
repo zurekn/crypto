@@ -1,6 +1,6 @@
 package polynomial;
 
-import Exception.DifferentBasisException;
+import exception.DifferentBasisException;
 
 public abstract class PolynomialCalculator {
 	

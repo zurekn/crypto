@@ -24,7 +24,8 @@ public class Polynomial {
 	}
 
 	public void addElement(int var, int degre) throws Exception{
-		if(false)
+		if(getDegree() < degre)
+			if(polynomial[degre] != 0)
 			throw new Exception("Can't add Element at the degre ["+degre+"], it already exist");
 		polynomial[degre] = var;
 	}

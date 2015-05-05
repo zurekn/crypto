@@ -9,8 +9,18 @@ public abstract class PolynomialCalculator {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param p, Polynomial
+	 * @param q, Polynomial
+	 * @return p x q
+	 * @throws DifferentBasisException
+	 */
 	public static Polynomial multiply(Polynomial p, Polynomial q) throws DifferentBasisException {
 		checkBasis(p, q);
+		
+		
+		
 		return null;
 	}
 
@@ -35,4 +45,11 @@ public abstract class PolynomialCalculator {
 					"Error can't calculate with two differents basis polynomials");
 		return true;
 	}
+
+	private static int mod(int i, int basis){
+		if(basis != 10)
+			return i%basis;
+		return i;
+	}
 }
+

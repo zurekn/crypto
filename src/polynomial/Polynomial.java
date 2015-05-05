@@ -8,6 +8,7 @@ public class Polynomial {
 	
 	public Polynomial(int[] p){
 		this.polynomial = p;
+		this.basis = 2;
 	}
 	
 	public Polynomial(int[] p, int basis){

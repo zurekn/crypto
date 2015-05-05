@@ -3,9 +3,22 @@ package polynomial;
 import Exception.DifferentBasisException;
 
 public abstract class PolynomialCalculator {
+	
+	/**
+	 * 
+	 * @param p, Polynomial
+	 * @param q, Polynomial
+	 * @return p + q
+	 * @throws DifferentBasisException
+	 */
 	public static Polynomial add(Polynomial p, Polynomial q)
 			throws DifferentBasisException {
 		checkBasis(p, q);
+		int dP = p.getOrder(), dQ = q.getOrder();
+		int[] result = new int[Math.max(dP, dQ)];
+		/*for(int i = 0 ; i < p.){
+			
+		}*/
 		return null;
 	}
 

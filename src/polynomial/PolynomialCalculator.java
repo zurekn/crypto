@@ -14,12 +14,17 @@ public abstract class PolynomialCalculator {
 	public static Polynomial add(Polynomial p, Polynomial q)
 			throws DifferentBasisException {
 		checkBasis(p, q);
-		int dP = p.getOrder(), dQ = q.getOrder();
-		int[] result = new int[Math.max(dP, dQ)];
-		/*for(int i = 0 ; i < p.){
-			
-		}*/
-		return null;
+		int basis = p.getBasis();
+		int oP = p.getOrder(), oQ = q.getOrder();
+		int[] result = new int[Math.max(oP, oQ)+1];
+		int i;
+		for(i = 0 ; i <= oP && i <= oQ ; i++)
+			result[i]=mod(p.getValue(i)+q.getValue(i),basis);
+		for(int j = i ; j <= oP ; j++)
+			result[j]=p.getValue(j);
+		for(int j = i ; j <= oQ ; j++)
+			result[j]=p.getValue(j);
+		return new Polynomial(result, basis);
 	}
 
 	/**
@@ -68,8 +73,9 @@ public abstract class PolynomialCalculator {
 	}
 
 	private static int mod(int i, int basis){
-		if(basis != 10)
+		if(basis == 2)
 			return i%basis;
+		
 		return i;
 	}
 }

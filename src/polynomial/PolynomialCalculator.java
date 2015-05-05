@@ -40,7 +40,7 @@ public abstract class PolynomialCalculator {
 
 	private static boolean checkBasis(Polynomial p, Polynomial q)
 			throws DifferentBasisException {
-		if (p.getBase() != q.getBase())
+		if (p.getBasis() != q.getBasis())
 			throw new DifferentBasisException(
 					"Error can't calculate with two differents basis polynomials");
 		return true;

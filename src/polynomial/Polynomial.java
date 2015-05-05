@@ -6,14 +6,26 @@ public class Polynomial {
 	private int[] polynomial = { 0 };
 	private int basis;
 
+	private void checkInitialValues(){
+		for(int i = 0 ; i <= getOrder();i++){
+			polynomial[i]=(polynomial[i]>=basis)?basis-1:polynomial[i];
+		}
+	}
+	
 	public Polynomial(int[] p) {
-		this.polynomial = p;
+		if (p != null)
+			this.polynomial = p;
+		else
+			this.polynomial = new int[1];
 		this.basis = 2;
+		checkInitialValues();
+		
 	}
 
 	public Polynomial(int[] p, int basis) {
 		this(p);
 		this.basis = basis;
+		checkInitialValues();
 	}
 
 	public int getOrder() {
@@ -52,15 +64,15 @@ public class Polynomial {
 			s = "Polynomial null";
 		} else {
 			if (polynomial[0] != 0) {
-				s += polynomial[0];
+				s += Integer.toString(polynomial[0], basis);
 				first = false;
 			}
 			if (polynomial[1] != 0) {
 				if (first) {
-					s += polynomial[1] + "X ";
+					s += Integer.toString(polynomial[1], basis) + "X ";
 					first = false;
 				} else {
-					s += "+ " + polynomial[1] + "X ";
+					s += "+ " + Integer.toString(polynomial[1], basis) + "X ";
 				}
 			}
 			for (int i = 2; i <= order; i++) {
@@ -71,8 +83,7 @@ public class Polynomial {
 						first = false;
 
 					s += Integer.toString(polynomial[i], basis)
-							+ FileRW.superscript("X"
-									+ Integer.toString(i, basis) + " ");
+							+ FileRW.superscript("X" + i + " ");
 				}
 			}
 		}

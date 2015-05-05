@@ -23,5 +23,10 @@ public class Polynomial {
 		return this.base ;
 	}
 
+	public void addElement(int var, int degre){
+		if(false)
+			throw new Exception("Can't add Element at the degre ["+degre+"], it already exist");
+		polynomial[degre] = var;
+	}
 	
 }

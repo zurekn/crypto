@@ -2,29 +2,28 @@ package polynomial;
 
 public class Polynomial {
 	private int[] polynomial = {0};
-	private int basis;
+	private int base;
 	
 	public Polynomial(){}
 	
 	public Polynomial(int[] p){
 		this.polynomial = p;
-		this.basis = 2;
 	}
 	
-	public Polynomial(int[] p, int basis){
+	public Polynomial(int[] p, int base){
 		this(p);
-		this.basis = basis ;
+		this.base = base ;
 	}
 	
 	public int getDegree(){
 		return polynomial.length-1;
 	}
 	
-	public int getBasis(){
-		return this.basis ;
+	public int getBase(){
+		return this.base ;
 	}
 
-	public void addElement(int var, int degre){
+	public void addElement(int var, int degre) throws Exception{
 		if(false)
 			throw new Exception("Can't add Element at the degre ["+degre+"], it already exist");
 		polynomial[degre] = var;

@@ -1,11 +1,10 @@
 package polynomial;
 
+import io.FileRW;
+
 public class Polynomial {
 	private int[] polynomial = { 0 };
-	private int basis = 2;
-
-	public Polynomial() {
-	}
+	private int basis;
 
 	public Polynomial(int[] p) {
 		this.polynomial = p;
@@ -18,11 +17,11 @@ public class Polynomial {
 	}
 
 	public int getOrder() {
-		int i = polynomial.length;
-		while(i>0){
-			if(polynomial[i]!=0)
+		int i = polynomial.length - 1;
+		while (i > 0) {
+			if (polynomial[i] != 0)
 				return i;
-			else 
+			else
 				i--;
 		}
 		return 0;
@@ -45,32 +44,36 @@ public class Polynomial {
 	}
 
 	@Override
-	public String toString(){
-		String s="";
-		int order =getOrder();
+	public String toString() {
+		String s = "";
+		int order = getOrder();
 		boolean first = true;
-		if(getOrder()==0){
+		if (order == 0) {
 			s = "Polynomial null";
 		} else {
-			s = "P : ";
-			if(polynomial[0]!=0){
-				s+=polynomial[0];
+			if (polynomial[0] != 0) {
+				s += polynomial[0];
 				first = false;
 			}
-			if(polynomial[1]!=0){
-				if(first){
-					s+=polynomial[1]+"X ";
+			if (polynomial[1] != 0) {
+				if (first) {
+					s += polynomial[1] + "X ";
 					first = false;
 				} else {
-					s+="+ "+polynomial[1]+"X ";
+					s += "+ " + polynomial[1] + "X ";
 				}
 			}
-			for(int i = 2 ; i < order ; i++){
-				if(!first)
-					s+="+ ";
-				else
-					first=false;
-				s+=polynomial[i]+"X^"+i+" ";
+			for (int i = 2; i <= order; i++) {
+				if (polynomial[i] != 0) {
+					if (!first)
+						s += "+ ";
+					else
+						first = false;
+
+					s += Integer.toString(polynomial[i], basis)
+							+ FileRW.superscript("X"
+									+ Integer.toString(i, basis) + " ");
+				}
 			}
 		}
 		return s;

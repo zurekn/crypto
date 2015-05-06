@@ -6,24 +6,25 @@ public class Polynomial {
 	private int[] polynomial = { 0 };
 	private int basis;
 
-	private void checkInitialValues(){
-		for(int i = 0 ; i <= getOrder();i++){
-			polynomial[i]=(polynomial[i]>=basis)?basis-1:polynomial[i];
-		}
+	private void checkInitialValues() {
+		if (basis != 10)
+			for (int i = 0; i <= getOrder(); i++) {
+				polynomial[i] = (Math.abs(polynomial[i]) >= basis) ? basis - 1
+						: Math.abs(polynomial[i]);
+			}
 	}
-	
+
 	public Polynomial(int[] p) {
 		if (p != null)
 			this.polynomial = p;
-		else
-			this.polynomial = new int[1];
 		this.basis = 2;
 		checkInitialValues();
-		
+
 	}
 
 	public Polynomial(int[] p, int basis) {
-		this(p);
+		if (p != null)
+			this.polynomial = p;
 		this.basis = basis;
 		checkInitialValues();
 	}
@@ -55,6 +56,12 @@ public class Polynomial {
 		return polynomial[ind];
 	}
 
+	public void setValue(int ind, int val) {
+		if (basis != 10)
+			polynomial[ind] = (Math.abs(polynomial[ind]) >= basis) ? basis - 1
+					: Math.abs(polynomial[ind]);
+	}
+
 	@Override
 	public String toString() {
 		String s = "";
@@ -64,20 +71,22 @@ public class Polynomial {
 			s = "Polynomial null";
 		} else {
 			if (polynomial[0] != 0) {
-				s += Integer.toString(polynomial[0], basis);
+				s += Integer.toString(polynomial[0], basis) + " ";
 				first = false;
 			}
-			if (polynomial[1] != 0) {
-				if (first) {
-					s += Integer.toString(polynomial[1], basis) + "X ";
-					first = false;
-				} else {
-					s += "+ " + Integer.toString(polynomial[1], basis) + "X ";
+			if (polynomial.length > 1)
+				if (polynomial[1] != 0) {
+					if (first) {
+						s += Integer.toString(polynomial[1], basis) + "X ";
+						first = false;
+					} else {
+						s += ((polynomial[1] > 0) ? "+ " : "")
+								+ Integer.toString(polynomial[1], basis) + "X ";
+					}
 				}
-			}
 			for (int i = 2; i <= order; i++) {
 				if (polynomial[i] != 0) {
-					if (!first)
+					if (!first && polynomial[i] > 0)
 						s += "+ ";
 					else
 						first = false;
@@ -87,6 +96,46 @@ public class Polynomial {
 				}
 			}
 		}
+		s = s.replaceAll("-", "- ");
+		return s;
+	}
+
+	public String toStringReverse() {
+		String s = "";
+		int order = getOrder();
+		boolean first = true;
+		if (order == 0) {
+			s = "Polynomial null";
+		} else {
+			for (int i = order; i >= 2; i--) {
+				if (polynomial[i] != 0) {
+					if (!first && polynomial[i] > 0)
+						s += "+ ";
+					else
+						first = false;
+
+					s += Integer.toString(polynomial[i], basis)
+							+ FileRW.superscript("X" + i + " ");
+				}
+			}
+			if (polynomial.length > 1)
+				if (polynomial[1] != 0) {
+					if (first) {
+						s += Integer.toString(polynomial[1], basis) + "X ";
+						first = false;
+					} else {
+						s += ((polynomial[1] > 0) ? "+ " : "")
+								+ Integer.toString(polynomial[1], basis) + "X ";
+					}
+				}
+			if (polynomial[0] != 0) {
+				if (!first && polynomial[0] > 0)
+					s += "+ ";
+				s += Integer.toString(polynomial[0], basis);
+			}
+
+		}
+		s = s.replaceAll("-", "- ");
 		return s;
 	}
 }

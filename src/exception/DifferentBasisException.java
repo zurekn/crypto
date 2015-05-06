@@ -1,5 +1,6 @@
 package exception;
 
+@SuppressWarnings("serial")
 public class DifferentBasisException extends Exception{
 
 	public DifferentBasisException(String args){

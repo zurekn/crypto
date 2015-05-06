@@ -12,8 +12,9 @@ public class Main {
 		int[] tab2 = {8,6,0,5,7,6};
 		Polynomial q = new Polynomial(tab2,2);
 		System.out.println(p.toString());
-		System.out.println("+\n"+q.toString());
-		System.out.println("=\n"+PolynomialCalculator.multiply(p, q).toString());
+		System.out.println("-\n"+q.toString());
+		Polynomial res = PolynomialCalculator.substract(p, q);
+		System.out.println("=\n"+res.toString());
 		
 		
 	}

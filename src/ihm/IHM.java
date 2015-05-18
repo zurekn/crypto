@@ -3,7 +3,6 @@ package ihm;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JToolBar;
 import java.awt.BorderLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -13,22 +12,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.Insets;
 import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
-import java.awt.Panel;
-import java.awt.Button;
 import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.FlowLayout;
-import javax.swing.JSplitPane;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 
 public class IHM {
 

@@ -4,7 +4,7 @@ import exception.WrongArgumentException;
 import io.FileRW;
 
 public class Polynomial {
-	private final String WAE_MESSAGE = "Les coefficients doivent être 0 ou 1";
+	private final String WAE_MESSAGE = "Les coefficients doivent ï¿½tre 0 ou 1";
 
 	private int[] polynomial = { 0 };
 
@@ -37,7 +37,7 @@ public class Polynomial {
 			polynomial=new int[0];
 		}catch(IndexOutOfBoundsException e){
 			polynomial=new int[0];
-			System.err.println("Les indices dans le tableau doivent être positif et croissant.");
+			System.err.println("Les indices dans le tableau doivent ï¿½tre positif et croissant.");
 		}
 	}
 
@@ -72,8 +72,8 @@ public class Polynomial {
 		try{
 			return polynomial[ind];
 		}catch(IndexOutOfBoundsException e){
-			System.err.println("Valeur inexistente");
-			return -1;
+			//System.err.println("Valeur inexistente");
+			return 0;
 		}
 	}
 

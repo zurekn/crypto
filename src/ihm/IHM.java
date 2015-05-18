@@ -3,18 +3,29 @@ package ihm;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+
 import javax.swing.JLabel;
+
 import java.awt.Insets;
+
 import javax.swing.JRadioButton;
+
 import java.awt.GridLayout;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class IHM {
 
@@ -26,7 +37,8 @@ public class IHM {
 	private JTextField txtP1;
 	private JTextField txtOpperation;
 	private JTextField txtP2;
-
+	private IHMHandler handler = new IHMHandler();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -103,6 +115,11 @@ public class IHM {
 		panel_4.setLayout(gbl_panel_4);
 		
 		JRadioButton rdbtnAddition = new JRadioButton("Addition");
+		rdbtnAddition.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				handler.setOpperation(arg0.getActionCommand());
+			}
+		});
 		rdbtnAddition.setToolTipText("Addition entre le polynome 1 et 2");
 		rdbtnAddition.setSelected(true);
 		GridBagConstraints gbc_rdbtnAddition = new GridBagConstraints();
@@ -115,6 +132,11 @@ public class IHM {
 		buttonGroup.add(rdbtnAddition);
 		
 		JRadioButton rdbtnMultiplication = new JRadioButton("Multiplication");
+		rdbtnMultiplication.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				handler.setOpperation(arg0.getActionCommand());
+			}
+		});
 		rdbtnMultiplication.setToolTipText("Multiplication entre le polynome 1 et 2");
 		GridBagConstraints gbc_rdbtnMultiplication = new GridBagConstraints();
 		gbc_rdbtnMultiplication.fill = GridBagConstraints.VERTICAL;
@@ -125,6 +147,11 @@ public class IHM {
 		buttonGroup.add(rdbtnMultiplication);
 		
 		JRadioButton rdbtnModulo = new JRadioButton("Modulo");
+		rdbtnModulo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				handler.setOpperation(e.getActionCommand());
+			}
+		});
 		rdbtnModulo.setToolTipText("Modulo du polynome 1, Mettre la valeur du modulo dans la case polynome 2\r\n");
 		GridBagConstraints gbc_rdbtnModulo = new GridBagConstraints();
 		gbc_rdbtnModulo.fill = GridBagConstraints.VERTICAL;
@@ -135,6 +162,11 @@ public class IHM {
 		buttonGroup.add(rdbtnModulo);
 		
 		JRadioButton rdbtnExponentiation = new JRadioButton("Exponentiation");
+		rdbtnExponentiation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				handler.setOpperation(e.getActionCommand());
+			}
+		});
 		rdbtnExponentiation.setToolTipText("Exponentiation du polynome 1, mettre la valeur de l'exponentielle dans la casse polynome 2");
 		GridBagConstraints gbc_rdbtnExponentiation = new GridBagConstraints();
 		gbc_rdbtnExponentiation.fill = GridBagConstraints.VERTICAL;
@@ -153,6 +185,17 @@ public class IHM {
 		panel_4.add(label, gbc_label);
 		
 		JButton btnCalculer = new JButton("Calculer");
+		btnCalculer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String result = handler.calculate(txtPolynome.getText(), txtPolynome_1.getText());
+				if(result.equals(null))
+					return;
+				txtP1.setText(handler.getP1());
+				txtP2.setText(handler.getP2());
+				txtOpperation.setText(handler.getOpperation());
+				txtPolynomeRes.setText(result);
+			}
+		});
 		GridBagConstraints gbc_btnCalculer = new GridBagConstraints();
 		gbc_btnCalculer.gridwidth = 2;
 		gbc_btnCalculer.insets = new Insets(0, 0, 0, 5);

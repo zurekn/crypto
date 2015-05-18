@@ -11,9 +11,9 @@ public class Main {
 		Polynomial p = new Polynomial(tab,2);
 		int[] tab2 = {1,1,0,1,1,1};
 		Polynomial q = new Polynomial(tab2,2);*/
-		int[] tab = {0,3,5,6};
+		int[] tab = {1,2};
 		Polynomial p = new Polynomial(tab);
-		int[] tab2 = {0,2};
+		int[] tab2 = {1};
 		Polynomial q = new Polynomial(tab2);
 		System.out.println(p.toString());
 		System.out.println("+\n"+q.toString());

@@ -37,6 +37,9 @@ public class IHM {
 	private JTextField txtPolynome;
 	private JTextField txtPolynome_1;
 	private JTextField txtPolynomeRes;
+	private JTextField txtP1;
+	private JTextField txtOpperation;
+	private JTextField txtP2;
 
 	/**
 	 * Launch the application.
@@ -83,10 +86,11 @@ public class IHM {
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2);
 		
-		JLabel lblPolynome = new JLabel("Polynome 1");
+		JLabel lblPolynome = new JLabel("Polynome 1 :");
 		panel_2.add(lblPolynome);
 		
 		txtPolynome = new JTextField();
+		txtPolynome.setToolTipText("Mettez les indices séparés par une virgule , exemple (1,5,6) donne (X+X⁵+X⁶)");
 		txtPolynome.setText("Polynome 1");
 		panel_2.add(txtPolynome);
 		txtPolynome.setColumns(10);
@@ -94,10 +98,11 @@ public class IHM {
 		JPanel panel_3 = new JPanel();
 		panel_1.add(panel_3);
 		
-		JLabel lblPolynome_1 = new JLabel("Polynome 2");
+		JLabel lblPolynome_1 = new JLabel("Polynome 2 :");
 		panel_3.add(lblPolynome_1);
 		
 		txtPolynome_1 = new JTextField();
+		txtPolynome_1.setToolTipText("Mettez les indices séparés par une virgule , exemple (1,5,6) donne (X+X⁵+X⁶)");
 		txtPolynome_1.setText("Polynome 2");
 		panel_3.add(txtPolynome_1);
 		txtPolynome_1.setColumns(10);
@@ -106,12 +111,13 @@ public class IHM {
 		panel.add(panel_4, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
 		gbl_panel_4.columnWidths = new int[]{162, 162, 162, 162, 0};
-		gbl_panel_4.rowHeights = new int[]{137, 137, 0};
+		gbl_panel_4.rowHeights = new int[]{101, 93, 0};
 		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
 		JRadioButton rdbtnAddition = new JRadioButton("Addition");
+		rdbtnAddition.setToolTipText("Addition entre le polynome 1 et 2");
 		rdbtnAddition.setSelected(true);
 		GridBagConstraints gbc_rdbtnAddition = new GridBagConstraints();
 		gbc_rdbtnAddition.anchor = GridBagConstraints.NORTH;
@@ -123,6 +129,7 @@ public class IHM {
 		buttonGroup.add(rdbtnAddition);
 		
 		JRadioButton rdbtnMultiplication = new JRadioButton("Multiplication");
+		rdbtnMultiplication.setToolTipText("Multiplication entre le polynome 1 et 2");
 		GridBagConstraints gbc_rdbtnMultiplication = new GridBagConstraints();
 		gbc_rdbtnMultiplication.fill = GridBagConstraints.VERTICAL;
 		gbc_rdbtnMultiplication.insets = new Insets(0, 0, 5, 5);
@@ -132,6 +139,7 @@ public class IHM {
 		buttonGroup.add(rdbtnMultiplication);
 		
 		JRadioButton rdbtnModulo = new JRadioButton("Modulo");
+		rdbtnModulo.setToolTipText("Modulo du polynome 1, Mettre la valeur du modulo dans la case polynome 2\r\n");
 		GridBagConstraints gbc_rdbtnModulo = new GridBagConstraints();
 		gbc_rdbtnModulo.fill = GridBagConstraints.VERTICAL;
 		gbc_rdbtnModulo.insets = new Insets(0, 0, 5, 5);
@@ -141,6 +149,7 @@ public class IHM {
 		buttonGroup.add(rdbtnModulo);
 		
 		JRadioButton rdbtnExponentiation = new JRadioButton("Exponentiation");
+		rdbtnExponentiation.setToolTipText("Exponentiation du polynome 1, mettre la valeur de l'exponentielle dans la casse polynome 2");
 		GridBagConstraints gbc_rdbtnExponentiation = new GridBagConstraints();
 		gbc_rdbtnExponentiation.fill = GridBagConstraints.VERTICAL;
 		gbc_rdbtnExponentiation.insets = new Insets(0, 0, 5, 0);
@@ -175,13 +184,43 @@ public class IHM {
 		
 		JPanel panel_5 = new JPanel();
 		panel.add(panel_5, BorderLayout.SOUTH);
+		panel_5.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_6 = new JPanel();
+		panel_5.add(panel_6, BorderLayout.CENTER);
 		
 		JLabel lblResultat = new JLabel("Resultat");
-		panel_5.add(lblResultat);
+		panel_6.add(lblResultat);
 		
 		txtPolynomeRes = new JTextField();
+		panel_6.add(txtPolynomeRes);
+		txtPolynomeRes.setEditable(false);
 		txtPolynomeRes.setText("Polynome res");
-		panel_5.add(txtPolynomeRes);
 		txtPolynomeRes.setColumns(10);
+		
+		JPanel panel_7 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_7.getLayout();
+		panel_5.add(panel_7, BorderLayout.NORTH);
+		
+		JLabel lblOpperation = new JLabel("Opperation :");
+		panel_7.add(lblOpperation);
+		
+		txtP1 = new JTextField();
+		txtP1.setEditable(false);
+		txtP1.setText("P1");
+		panel_7.add(txtP1);
+		txtP1.setColumns(10);
+		
+		txtOpperation = new JTextField();
+		txtOpperation.setEditable(false);
+		txtOpperation.setText("Opperation");
+		panel_7.add(txtOpperation);
+		txtOpperation.setColumns(10);
+		
+		txtP2 = new JTextField();
+		txtP2.setEditable(false);
+		txtP2.setText("P2");
+		panel_7.add(txtP2);
+		txtP2.setColumns(10);
 	}
 }

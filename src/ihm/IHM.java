@@ -383,6 +383,17 @@ public class IHM {
 		gbc_btnGenere.gridy = 5;
 		panel_10.add(btnGenere, gbc_btnGenere);
 		
+		JButton btnNext = new JButton("Next gen");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtSuiteChiffrante.setText(handler.nextGen(txtNombre.getText()));
+			}
+		});
+		GridBagConstraints gbc_btnNext = new GridBagConstraints();
+		gbc_btnNext.gridx = 6;
+		gbc_btnNext.gridy = 5;
+		panel_10.add(btnNext, gbc_btnNext);
+		
 		JPanel panel_9 = new JPanel();
 		panelLFSR.add(panel_9);
 		GridBagLayout gbl_panel_9 = new GridBagLayout();
@@ -401,9 +412,9 @@ public class IHM {
 		panel_9.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 55, 48, 0};
+		gbl_panel.rowHeights = new int[]{101, 48, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JTextField textAreaDragDrop = new JTextField();
@@ -420,7 +431,6 @@ public class IHM {
 		GridBagConstraints gbc_textAreaDragDrop = new GridBagConstraints();
 		gbc_textAreaDragDrop.insets = new Insets(0, 0, 5, 0);
 		gbc_textAreaDragDrop.gridwidth = 2;
-		gbc_textAreaDragDrop.gridheight = 2;
 		gbc_textAreaDragDrop.fill = GridBagConstraints.BOTH;
 		gbc_textAreaDragDrop.gridx = 0;
 		gbc_textAreaDragDrop.gridy = 0;
@@ -440,7 +450,7 @@ public class IHM {
 		GridBagConstraints gbc_btnCrypt = new GridBagConstraints();
 		gbc_btnCrypt.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCrypt.gridx = 0;
-		gbc_btnCrypt.gridy = 2;
+		gbc_btnCrypt.gridy = 1;
 		panel.add(btnCrypt, gbc_btnCrypt);
 		
 		JButton btnDecrypt = new JButton("Decrypt");
@@ -456,7 +466,7 @@ public class IHM {
 		});
 		GridBagConstraints gbc_btnDecrypt = new GridBagConstraints();
 		gbc_btnDecrypt.gridx = 1;
-		gbc_btnDecrypt.gridy = 2;
+		gbc_btnDecrypt.gridy = 1;
 		panel.add(btnDecrypt, gbc_btnDecrypt);
 		
 		JLabel lblSortie = new JLabel("Sortie");

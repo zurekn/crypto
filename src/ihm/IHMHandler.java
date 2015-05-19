@@ -181,4 +181,12 @@ public class IHMHandler {
 		System.out.println("fichier de sortie = " + output);
 		return 1;
 	}
+
+	public String nextGen(String number) {
+		try{
+		return this.lfsr.genere(Integer.parseInt(number));
+		}catch(NumberFormatException e){
+			return "Error "+e.getLocalizedMessage();
+		}
+	}
 }

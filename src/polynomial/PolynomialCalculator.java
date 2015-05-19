@@ -1,5 +1,6 @@
 package polynomial;
 
+import exception.ExistingElementException;
 import exception.WrongArgumentException;
 
 public abstract class PolynomialCalculator {
@@ -67,18 +68,16 @@ public abstract class PolynomialCalculator {
 	 * @throws WrongArgumentException
 	 */
 	public static Polynomial substract(Polynomial p, Polynomial q) {
-		int oP = p.getDegree(), oQ = q.getDegree();
-		int[] result = new int[Math.max(oP, oQ) + 1];
+		int dP = p.getDegree(), dQ = q.getDegree();
+		int[] result = new int[Math.max(dP, dQ) + 1];
 		int i;
-		for (i = 0; i <= oP && i <= oQ; i++)
-			result[i] = (p.getValue(i) - q.getValue(i)) % 2;
-		for (int j = i; j <= oP; j++)
+		for (i = 0; i <= dP && i <= dQ; i++)
+			result[i] = Math.abs(p.getValue(i) - q.getValue(i)) % 2;
+		for (int j = i; j <= dP; j++)
 			result[j] = p.getValue(j);
-		for (int j = i; j <= oQ; j++)
-			result[j] = (-q.getValue(j)) % 2;
+		for (int j = i; j <= dQ; j++)
+			result[j] = q.getValue(j); //TODO demander si on recopie la valeur ou si on fait passer une retenue
 
-		for (i = 0; i < result.length; i++)
-			System.out.print(result[i] + "  ");
 		return new Polynomial(result, true);
 	}
 
@@ -104,6 +103,54 @@ public abstract class PolynomialCalculator {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param p
+	 * @param q
+	 * @return p % q
+	 */
+	public static Polynomial mod(Polynomial p, Polynomial q) {
+		int n = p.compare(q);
+		if (n == 1)
+			return p;
+		if (n == 0)
+			return new Polynomial(new int[0]);
+
+		int dP = p.getDegree();
+		int dQ = q.getDegree();
+		Polynomial remainder = new Polynomial(new int[0]), result = new Polynomial(
+				new int[0]);
+		boolean done = false;
+		while (!done) {
+			dP = p.getDegree();
+			n = dP - dQ;
+			if (n < 0) {
+				done = true;
+			} else {
+				try {
+					result.addElement(1, n);
+				} catch (ExistingElementException e) {
+					System.err
+							.println("Réécriture au lieu de rajout dans le polynôme");
+					result.setValue(n, 1);
+				}
+				int[] tab = new int[1];
+				tab[0]=n;
+				Polynomial tmp = multiply(q,new Polynomial(tab));
+				remainder = substract(p,tmp);
+				p = remainder;
+			}
+
+		}
+
+		return remainder;
+	}
+	
+	public static Polynomial expMod(Polynomial p, int n, Polynomial mod){
+		return mod(pow(p,n),mod);
+	}
+
+	@Deprecated
 	public static boolean isPrimary(Polynomial p) {
 		return false;
 	}
@@ -119,10 +166,12 @@ public abstract class PolynomialCalculator {
 	 * return null; }
 	 */
 
+	@Deprecated
 	public static Polynomial factorize(Polynomial p) {
 		return null;
 	}
 
+	@Deprecated
 	public static Polynomial GCD(Polynomial p, Polynomial q) {
 		if (q.getDegree() > p.getDegree()) {
 			Polynomial tmp = q;

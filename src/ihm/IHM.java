@@ -103,7 +103,7 @@ public class IHM {
 		panel_2.add(lblPolynome);
 		
 		txtPolynome = new JTextField();
-		txtPolynome.setToolTipText("Mettez les indices séparés par une virgule , exemple (1,5,6) donne (X+X⁵+X⁶)");
+		txtPolynome.setToolTipText("Mettez les indices sÃ©parÃ©s par une virgule , exemple (1,5,6) donne (X+Xâ�µ+Xâ�¶)");
 		txtPolynome.setText("Polynome 1");
 		panel_2.add(txtPolynome);
 		txtPolynome.setColumns(10);
@@ -115,7 +115,7 @@ public class IHM {
 		panel_3.add(lblPolynome_1);
 		
 		txtPolynome_1 = new JTextField();
-		txtPolynome_1.setToolTipText("Mettez les indices séparés par une virgule , exemple (1,5,6) donne (X+X⁵+X⁶)");
+		txtPolynome_1.setToolTipText("Mettez les indices sÃ©parÃ©s par une virgule , exemple (1,5,6) donne (X+Xâ�µ+Xâ�¶)");
 		txtPolynome_1.setText("Polynome 2");
 		panel_3.add(txtPolynome_1);
 		txtPolynome_1.setColumns(10);

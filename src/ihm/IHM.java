@@ -417,7 +417,7 @@ public class IHM {
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JTextField textAreaDragDrop = new JTextField();
+		final JTextField textAreaDragDrop = new JTextField();
 		textAreaDragDrop.setHorizontalAlignment(SwingConstants.CENTER);
 		textAreaDragDrop.setText("Drag and Drop the file to crypt here");
 		new FileDrop( System.out, textAreaDragDrop, new FileDrop.Listener() {   

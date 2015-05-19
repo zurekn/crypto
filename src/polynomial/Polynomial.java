@@ -142,7 +142,7 @@ public class Polynomial {
 		String s = "";
 		int degree = getDegree();
 		boolean first = true;
-		if (degree == 0) {
+		if (degree == 0 && polynomial[0]==0) {
 			s = "Polynomial null";
 		} else {
 			if (polynomial[0] != 0) {
@@ -178,7 +178,7 @@ public class Polynomial {
 		String s = "";
 		int degree = getDegree();
 		boolean first = true;
-		if (degree == 0) {
+		if (degree == 0 && polynomial[0]==0) {
 			s = "Polynomial null";
 		} else {
 			for (int i = degree; i >= 2; i--) {

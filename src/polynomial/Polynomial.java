@@ -1,12 +1,15 @@
 package polynomial;
 
+import java.util.Arrays;
+
+import exception.ExistingElementException;
 import exception.WrongArgumentException;
 import io.FileRW;
 
 public class Polynomial {
 	private final String WAE_MESSAGE = "Les coefficients doivent être 0 ou 1";
 
-	private int[] polynomial = { 0 };
+	private int[] polynomial = {};
 
 	private void checkInitialValues() throws WrongArgumentException {
 		for (int i = 0; i <= getDegree(); i++) {
@@ -25,19 +28,22 @@ public class Polynomial {
 			wae.printStackTrace();
 		}
 	}
-	
-	public Polynomial(int[] p){
-		try{
-			polynomial = new int[p[p.length-1]+1];
-			for(int i = 0 ; i < p.length ; i++){
-				polynomial[p[i]]=1;
+
+	public Polynomial(int[] p) {
+		try {
+			if (p.length > 0) {
+				polynomial = new int[p[p.length - 1] + 1];
+				for (int i = 0; i < p.length; i++) {
+					polynomial[p[i]] = 1;
+				}
 			}
-		}catch(NullPointerException npe){
+		} catch (NullPointerException npe) {
 			System.err.println("Tableau null.");
-			polynomial=new int[0];
-		}catch(IndexOutOfBoundsException e){
-			polynomial=new int[0];
-			System.err.println("Les indices dans le tableau doivent être positif et croissant.");
+			polynomial = new int[0];
+		} catch (IndexOutOfBoundsException e) {
+			polynomial = new int[0];
+			System.err
+					.println("Les indices dans le tableau doivent être positif et croissant.");
 		}
 	}
 
@@ -52,15 +58,15 @@ public class Polynomial {
 		return 0;
 	}
 
-	public void addElement(int var, int degree) throws Exception {
+	public void addElement(int var, int degree) throws ExistingElementException {
 		if (getDegree() > degree)
 			if (polynomial[degree] != 0)
-				throw new Exception("Can't add Element at the degre [" + degree
+				throw new ExistingElementException("Can't add Element at the degre [" + degree
 						+ "], it already exist");
 		if (this.getDegree() < degree) {
 			int[] tab = new int[degree + 1];
-			for (int i = 0; i <= getDegree(); i++)
-				tab[i] = polynomial[i];
+			for (int i = 0; i <= getDegree() && i < polynomial.length; i++){
+				tab[i] = polynomial[i];}
 			tab[degree] = var;
 			polynomial = tab;
 		} else {
@@ -69,22 +75,65 @@ public class Polynomial {
 	}
 
 	public int getValue(int ind) {
-		try{
+		try {
 			return polynomial[ind];
-		}catch(IndexOutOfBoundsException e){
+		} catch (IndexOutOfBoundsException e) {
 			System.err.println("Valeur inexistente");
 			return -1;
 		}
 	}
+	
+	public int[] getCoefficients(){
+		return polynomial;
+	}
 
 	public void setValue(int ind, int val) {
 		try {
-			if (val !=0 && val != 1)
+			if (val != 0 && val != 1)
 				throw new WrongArgumentException(WAE_MESSAGE);
 			polynomial[ind] = val;
 		} catch (WrongArgumentException wae) {
 			wae.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Polynomial other = (Polynomial) obj;
+		if (Arrays.equals(polynomial, other.polynomial))
+			return true;
+		return false;
+	}
+
+	/**
+	 * 
+	 * @param q
+	 * @return 1 if q superior, 0 if equal, -1 if q inferior
+	 */
+	public int compare(Polynomial q) {
+		int dQ = q.getDegree();
+		int dP = this.getDegree();
+		if (dQ > dP)
+			return 1;
+		if (dP > dQ)
+			return -1;
+		if (Arrays.equals(this.polynomial, q.polynomial))
+			return 0;
+		int i = dP;
+		while (i >= 0) {
+			if (q.polynomial[i] > this.polynomial[i])
+				return -1;
+			if (q.polynomial[i] < this.polynomial[i])
+				return 1;
+			i--;
+		}
+		return 0;
 	}
 
 	@Override

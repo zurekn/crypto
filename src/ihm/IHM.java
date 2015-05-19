@@ -35,8 +35,11 @@ import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 
+import polynomial.Polynomial;
 import engine.LFSR;
 import massey.Core;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class IHM {
 
@@ -110,6 +113,13 @@ public class IHM {
 		panel_2.add(lblPolynome);
 		
 		txtPolynome = new JTextField();
+		txtPolynome.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtPolynome.getText().equals("Polynome 1"))
+					txtPolynome.setText("");
+			}
+		});
 		txtPolynome.setToolTipText("Mettez les indices sÃ©parÃ©s par une virgule , exemple (1,5,6) donne (X+Xâ�µ+Xâ�¶)");
 		txtPolynome.setText("Polynome 1");
 		panel_2.add(txtPolynome);
@@ -122,6 +132,13 @@ public class IHM {
 		panel_3.add(lblPolynome_1);
 		
 		txtPolynome_1 = new JTextField();
+		txtPolynome_1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtPolynome_1.getText().equals("Polynome 2"))
+					txtPolynome_1.setText("");
+			}
+		});
 		txtPolynome_1.setToolTipText("Mettez les indices sÃ©parÃ©s par une virgule , exemple (1,5,6) donne (X+Xâ�µ+Xâ�¶)");
 		txtPolynome_1.setText("Polynome 2");
 		panel_3.add(txtPolynome_1);
@@ -295,6 +312,13 @@ public class IHM {
 		panel_10.add(lblLfsr, gbc_lblLfsr);
 		
 		txtLfsr = new JTextField();
+		txtLfsr.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if(txtLfsr.getText().equals("LFSR"))
+					txtLfsr.setText("");
+			}
+		});
 		txtLfsr.setText("LFSR");
 		GridBagConstraints gbc_txtLfsr = new GridBagConstraints();
 		gbc_txtLfsr.gridwidth = 3;
@@ -314,6 +338,13 @@ public class IHM {
 		panel_10.add(lblBase, gbc_lblBase);
 		
 		txtBase = new JTextField();
+		txtBase.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtBase.getText().equals("Base"))
+					txtBase.setText("");
+			}
+		});
 		txtBase.setText("Base");
 		GridBagConstraints gbc_txtBase = new GridBagConstraints();
 		gbc_txtBase.insets = new Insets(0, 0, 5, 0);
@@ -331,6 +362,13 @@ public class IHM {
 		panel_10.add(lblRetroaction, gbc_lblRetroaction);
 		
 		txtRetroaction = new JTextField();
+		txtRetroaction.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtRetroaction.getText().equals("Retroaction"))
+					txtRetroaction.setText("");
+			}
+		});
 		txtRetroaction.setText("Retroaction");
 		GridBagConstraints gbc_txtRetroaction = new GridBagConstraints();
 		gbc_txtRetroaction.gridwidth = 3;
@@ -349,6 +387,13 @@ public class IHM {
 		panel_10.add(lblLongueur, gbc_lblLongueur);
 		
 		txtLength = new JTextField();
+		txtLength.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtLength.getText().equals("Length"))
+					txtLength.setText("");
+			}
+		});
 		txtLength.setText("Length");
 		GridBagConstraints gbc_txtLength = new GridBagConstraints();
 		gbc_txtLength.gridwidth = 3;
@@ -367,6 +412,13 @@ public class IHM {
 		panel_10.add(lblLongueurSuite, gbc_lblLongueurSuite);
 		
 		txtNombre = new JTextField();
+		txtNombre.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(txtNombre.getText().equals("Nombre"))
+					txtNombre.setText("");
+			}
+		});
 		txtNombre.setText("Nombre");
 		GridBagConstraints gbc_txtNombre = new GridBagConstraints();
 		gbc_txtNombre.gridwidth = 2;
@@ -559,7 +611,7 @@ public class IHM {
 		btnRecuptLfsr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LFSR lfsr = Core.findLFSR(txtSuiteChiffranteMassey.getText());
-				txtPolynomeDeRetroaction.setText(lfsr.toString());
+				txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
 			}
 		});
 		panel_12.add(btnRecuptLfsr);

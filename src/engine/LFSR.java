@@ -42,6 +42,10 @@ public class LFSR {
 		System.out.println("Lfsr reinitialised");
 	}
 
+	public int[] getCoef(){
+		return coefficients;
+	}
+	
 	/**
 	 * Décalage à droite et récupération du bit de sortie
 	 * 

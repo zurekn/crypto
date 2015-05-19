@@ -1,5 +1,7 @@
 package engine;
 
+import java.util.Arrays;
+
 import io.FileRW;
 
 public class LFSR {
@@ -41,7 +43,7 @@ public class LFSR {
 	}
 
 	/**
-	 * Décalage à droite et récupération du bit de sortie
+	 * DÃ©calage Ã  droite et rÃ©cupÃ©ration du bit de sortie
 	 * 
 	 * a=0; n = P & etat;
 	 * 
@@ -70,7 +72,7 @@ public class LFSR {
 		if (DEBUG > 2) {
 			System.out
 					.println("Nouvel etat :\t" + Integer.toBinaryString(etat));
-			System.out.println("Bit à insérer :\t"
+			System.out.println("Bit ï¿½ insï¿½rer :\t"
 					+ Integer.toBinaryString(nouveauBit << (longueur - 1))
 					+ "\t"
 					+ Integer.toBinaryString(nouveauBit << (longueur - 1))

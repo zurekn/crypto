@@ -44,6 +44,7 @@ public class Polynomial {
 			polynomial = new int[0];
 			System.err
 					.println("Les indices dans le tableau doivent être positif et croissant.");
+
 		}
 	}
 
@@ -77,9 +78,9 @@ public class Polynomial {
 	public int getValue(int ind) {
 		try {
 			return polynomial[ind];
-		} catch (IndexOutOfBoundsException e) {
-			System.err.println("Valeur inexistente");
-			return -1;
+		}catch(IndexOutOfBoundsException e){
+			//System.err.println("Valeur inexistente");
+			return 0;
 		}
 	}
 	

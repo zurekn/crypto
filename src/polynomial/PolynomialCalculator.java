@@ -15,16 +15,17 @@ public abstract class PolynomialCalculator {
 	 * @throws WrongArgumentException
 	 */
 	public static Polynomial add(Polynomial p, Polynomial q) {
-		// TODO ajouter décalage
 		int dP = p.getDegree(), dQ = q.getDegree();
-		int[] result = new int[Math.max(dP, dQ) + 1];
+		int max = Math.max(dP, dQ) + 1;
+		int[] result = new int[max+1];
 		int i;
-		for (i = 0; i <= dP && i <= dQ; i++) {
+		for (i = 0; i<max; i++) {
 			int n = result[i] + p.getValue(i) + q.getValue(i);
 			if (n >= 2 && i < result.length - 1)
 				result[i + 1] = 1;
 			result[i] = n % 2;
 		}
+		
 		for (int j = i; j <= dP; j++)
 			result[j] = p.getValue(j);
 		for (int j = i; j <= dQ; j++)

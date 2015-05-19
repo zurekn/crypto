@@ -37,7 +37,7 @@ public abstract class Core {
 			System.out.println(n+"\t"+input.charAt(n)+"\t"+d+"\t"+L+"\t"+f.toString()+"\t"+m+"\t"+g.toString());
 		}
 		String etat = input.substring(0, L);
-		
+		System.out.println("______________________________________________________");
 		lfsr = new LFSR(L, f.getCoefficients(), Integer.parseInt(etat, 2));
 		
 		return lfsr;

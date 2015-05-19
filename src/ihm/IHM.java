@@ -35,6 +35,9 @@ import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 
+import engine.LFSR;
+import massey.Core;
+
 public class IHM {
 
 	private JFrame frmCrypto;
@@ -52,6 +55,10 @@ public class IHM {
 	private JTextField txtNombre;
 	private JTextField txtSuiteChiffrante;
 	private JTextField txtBase;
+	private JTextField txtSuiteChiffranteMassey;
+	private JTextField txtFichierCrypter;
+	private JTextField txtPolynomeDeRetroaction;
+	private JTextField txtPolynomeDeSortie;
 	
 	/**
 	 * Launch the application.
@@ -374,7 +381,7 @@ public class IHM {
 		btnGenere.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtSuiteChiffrante.setText(handler.genere(txtNombre.getText(), txtLfsr.getText(), txtLength.getText(), txtRetroaction.getText(), txtBase.getText()));
-				
+				txtSuiteChiffranteMassey.setText(txtSuiteChiffrante.getText());
 			}
 		});
 		GridBagConstraints gbc_btnGenere = new GridBagConstraints();
@@ -469,8 +476,9 @@ public class IHM {
 		gbc_btnDecrypt.gridy = 1;
 		panel.add(btnDecrypt, gbc_btnDecrypt);
 		
-		JLabel lblSortie = new JLabel("Sortie");
+		JLabel lblSortie = new JLabel("Suite Chiffrante");
 		GridBagConstraints gbc_lblSortie = new GridBagConstraints();
+		gbc_lblSortie.anchor = GridBagConstraints.NORTH;
 		gbc_lblSortie.insets = new Insets(0, 0, 5, 0);
 		gbc_lblSortie.gridx = 0;
 		gbc_lblSortie.gridy = 1;
@@ -479,12 +487,131 @@ public class IHM {
 		txtSuiteChiffrante = new JTextField();
 		txtSuiteChiffrante.setHorizontalAlignment(SwingConstants.CENTER);
 		txtSuiteChiffrante.setEditable(false);
-		txtSuiteChiffrante.setText("Suite chiffrante");
 		GridBagConstraints gbc_txtSuiteChiffrante = new GridBagConstraints();
 		gbc_txtSuiteChiffrante.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtSuiteChiffrante.gridx = 0;
 		gbc_txtSuiteChiffrante.gridy = 2;
 		panel_9.add(txtSuiteChiffrante, gbc_txtSuiteChiffrante);
 		txtSuiteChiffrante.setColumns(10);
+		
+		JPanel panelMassey = new JPanel();
+		tabbedPane.addTab("Massey", null, panelMassey, null);
+		panelMassey.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JPanel panel_8 = new JPanel();
+		panelMassey.add(panel_8);
+		GridBagLayout gbl_panel_8 = new GridBagLayout();
+		gbl_panel_8.columnWidths = new int[]{0, 0, 0};
+		gbl_panel_8.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_8.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_8.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		panel_8.setLayout(gbl_panel_8);
+		
+		JLabel lblSuiteChiffrante = new JLabel("Suite Chiffrante : ");
+		GridBagConstraints gbc_lblSuiteChiffrante = new GridBagConstraints();
+		gbc_lblSuiteChiffrante.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSuiteChiffrante.anchor = GridBagConstraints.EAST;
+		gbc_lblSuiteChiffrante.gridx = 0;
+		gbc_lblSuiteChiffrante.gridy = 1;
+		panel_8.add(lblSuiteChiffrante, gbc_lblSuiteChiffrante);
+		
+		txtSuiteChiffranteMassey = new JTextField();
+		txtSuiteChiffranteMassey.setText("Suite Chiffrante");
+		GridBagConstraints gbc_txtSuiteChiffranteMassey = new GridBagConstraints();
+		gbc_txtSuiteChiffranteMassey.insets = new Insets(0, 0, 5, 0);
+		gbc_txtSuiteChiffranteMassey.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSuiteChiffranteMassey.gridx = 1;
+		gbc_txtSuiteChiffranteMassey.gridy = 1;
+		panel_8.add(txtSuiteChiffranteMassey, gbc_txtSuiteChiffranteMassey);
+		txtSuiteChiffranteMassey.setColumns(10);
+		
+		txtFichierCrypter = new JTextField();
+		new FileDrop( System.out, txtFichierCrypter, new FileDrop.Listener() {   
+		 	public void filesDropped( java.io.File[] files ){
+		 		for( int i = 0; i < files.length; i++ ){  
+		 			try{   txtFichierCrypter.setText(( files[i].getCanonicalPath() ));
+		             } catch( java.io.IOException e ) {}
+		         }  
+		     }   
+		 });
+		txtFichierCrypter.setHorizontalAlignment(SwingConstants.LEFT);
+		txtFichierCrypter.setText("Deplacer le fichier crypter ici");
+		GridBagConstraints gbc_txtFichierCrypter = new GridBagConstraints();
+		gbc_txtFichierCrypter.gridwidth = 2;
+		gbc_txtFichierCrypter.gridheight = 2;
+		gbc_txtFichierCrypter.insets = new Insets(0, 0, 5, 0);
+		gbc_txtFichierCrypter.fill = GridBagConstraints.BOTH;
+		gbc_txtFichierCrypter.gridx = 0;
+		gbc_txtFichierCrypter.gridy = 3;
+		panel_8.add(txtFichierCrypter, gbc_txtFichierCrypter);
+		txtFichierCrypter.setColumns(10);
+		
+		JPanel panel_12 = new JPanel();
+		GridBagConstraints gbc_panel_12 = new GridBagConstraints();
+		gbc_panel_12.gridwidth = 2;
+		gbc_panel_12.fill = GridBagConstraints.BOTH;
+		gbc_panel_12.gridx = 0;
+		gbc_panel_12.gridy = 5;
+		panel_8.add(panel_12, gbc_panel_12);
+		panel_12.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnRecuptLfsr = new JButton("Recupt LFSR");
+		btnRecuptLfsr.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LFSR lfsr = Core.findLFSR(txtSuiteChiffranteMassey.getText());
+				txtPolynomeDeRetroaction.setText(lfsr.toString());
+			}
+		});
+		panel_12.add(btnRecuptLfsr);
+		
+		JButton btnDecrypter = new JButton("Decrypter");
+		panel_12.add(btnDecrypter);
+		
+		JPanel panel_11 = new JPanel();
+		panelMassey.add(panel_11);
+		GridBagLayout gbl_panel_11 = new GridBagLayout();
+		gbl_panel_11.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_panel_11.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_panel_11.columnWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_11.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_11.setLayout(gbl_panel_11);
+		
+		JLabel lblPolynomeDeRetroaction = new JLabel("Polynome de retroaction : ");
+		GridBagConstraints gbc_lblPolynomeDeRetroaction = new GridBagConstraints();
+		gbc_lblPolynomeDeRetroaction.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPolynomeDeRetroaction.anchor = GridBagConstraints.EAST;
+		gbc_lblPolynomeDeRetroaction.gridx = 0;
+		gbc_lblPolynomeDeRetroaction.gridy = 1;
+		panel_11.add(lblPolynomeDeRetroaction, gbc_lblPolynomeDeRetroaction);
+		
+		txtPolynomeDeRetroaction = new JTextField();
+		txtPolynomeDeRetroaction.setEditable(false);
+		txtPolynomeDeRetroaction.setText("Polynome de retroaction");
+		GridBagConstraints gbc_txtPolynomeDeRetroaction = new GridBagConstraints();
+		gbc_txtPolynomeDeRetroaction.insets = new Insets(0, 0, 5, 5);
+		gbc_txtPolynomeDeRetroaction.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPolynomeDeRetroaction.gridx = 1;
+		gbc_txtPolynomeDeRetroaction.gridy = 1;
+		panel_11.add(txtPolynomeDeRetroaction, gbc_txtPolynomeDeRetroaction);
+		txtPolynomeDeRetroaction.setColumns(10);
+		
+		JLabel lblPolynomeDeSortie = new JLabel("Polynome de sortie : ");
+		GridBagConstraints gbc_lblPolynomeDeSortie = new GridBagConstraints();
+		gbc_lblPolynomeDeSortie.anchor = GridBagConstraints.EAST;
+		gbc_lblPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
+		gbc_lblPolynomeDeSortie.gridx = 0;
+		gbc_lblPolynomeDeSortie.gridy = 2;
+		panel_11.add(lblPolynomeDeSortie, gbc_lblPolynomeDeSortie);
+		
+		txtPolynomeDeSortie = new JTextField();
+		txtPolynomeDeSortie.setEditable(false);
+		txtPolynomeDeSortie.setText("Polynome de sortie");
+		GridBagConstraints gbc_txtPolynomeDeSortie = new GridBagConstraints();
+		gbc_txtPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
+		gbc_txtPolynomeDeSortie.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPolynomeDeSortie.gridx = 1;
+		gbc_txtPolynomeDeSortie.gridy = 2;
+		panel_11.add(txtPolynomeDeSortie, gbc_txtPolynomeDeSortie);
+		txtPolynomeDeSortie.setColumns(10);
 	}
 }

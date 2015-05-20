@@ -183,10 +183,10 @@ public class IHMHandler {
 	}
 
 	public String nextGen(String number) {
-		try{
-		return this.lfsr.genere(Integer.parseInt(number));
-		}catch(NumberFormatException e){
-			return "Error "+e.getLocalizedMessage();
+		try {
+			return this.lfsr.genere(Integer.parseInt(number));
+		} catch (NumberFormatException e) {
+			return "Error " + e.getLocalizedMessage();
 		}
 	}
 }

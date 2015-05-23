@@ -40,6 +40,10 @@ import engine.LFSR;
 import massey.Core;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
 
 public class IHM {
 
@@ -590,11 +594,11 @@ public class IHM {
 		txtFichierCrypter.setText("Deplacer le fichier crypter ici");
 		GridBagConstraints gbc_txtFichierCrypter = new GridBagConstraints();
 		gbc_txtFichierCrypter.gridwidth = 2;
-		gbc_txtFichierCrypter.gridheight = 2;
+		gbc_txtFichierCrypter.gridheight = 3;
 		gbc_txtFichierCrypter.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFichierCrypter.fill = GridBagConstraints.BOTH;
 		gbc_txtFichierCrypter.gridx = 0;
-		gbc_txtFichierCrypter.gridy = 3;
+		gbc_txtFichierCrypter.gridy = 2;
 		panel_8.add(txtFichierCrypter, gbc_txtFichierCrypter);
 		txtFichierCrypter.setColumns(10);
 		
@@ -619,7 +623,13 @@ public class IHM {
 		JButton btnDecrypter = new JButton("Decrypter");
 		btnDecrypter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String out = handler.decryptMassey(txtFichierCrypter.getText());
+				String output = JOptionPane.showInputDialog("Entrez le chemin du fichier de sortie : \n "+txtFichierCrypter.getText()+"\n Laissez vide pour avoir le chemin par default");
+				if(output.isEmpty()){
+					File file = new File(txtFichierCrypter.getText());
+					output = file.getParent()+File.separator+"MasseyDecrypted"+file.getName();
+				}
+				LFSR lfsr = handler.decryptMassey(txtFichierCrypter.getText(), output);
+				txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
 				
 			}
 		});

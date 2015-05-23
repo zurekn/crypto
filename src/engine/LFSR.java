@@ -37,6 +37,10 @@ public class LFSR {
 		init(coefficients, etat);
 	}
 
+	public int getLongeur(){
+		return longueur;
+	}
+	
 	public void reset() {
 		init(coefficients, etatInit);
 		System.out.println("Lfsr reinitialised");

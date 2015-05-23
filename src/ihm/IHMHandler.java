@@ -125,7 +125,8 @@ public class IHMHandler {
 			String input, String output) {
 		File in = new File(input);
 		File out = new File(output);
-		System.out.println("Crypt file ["+in.getAbsolutePath()+"] to ["+out.getAbsolutePath()+"]");
+		System.out.println("Crypt file [" + in.getAbsolutePath() + "] to ["
+				+ out.getAbsolutePath() + "]");
 		if (!in.exists())
 			return 0;
 		if (!out.exists())
@@ -158,7 +159,8 @@ public class IHMHandler {
 			String input, String output) {
 		File in = new File(input);
 		File out = new File(output);
-		System.out.println("Crypt file ["+in.getAbsolutePath()+"] to ["+out.getAbsolutePath()+"]");
+		System.out.println("Crypt file [" + in.getAbsolutePath() + "] to ["
+				+ out.getAbsolutePath() + "]");
 		if (!in.exists())
 			return 0;
 		if (!out.exists())
@@ -195,28 +197,64 @@ public class IHMHandler {
 		}
 	}
 
-	public String decryptMassey(String path) {
-		File file = new File(path);
-		//on supose que cest un pdf
-		byte []f = FileRW.readBinaryFile(path);
-		if(checkEncryptedFile(f, path))
+	public LFSR decryptMassey(String input, String output) {
+		File in = new File(input);
+		System.out.println("Fichier crypter [" + input + "] vers [" + output
+				+ "]");
+		// on supose que cest un pdf
+		byte[] f = FileRW.readBinaryFile(input);
+		int l = checkEncryptedFile(f, input);
+		if (l > 0)
 			System.out.println("Le fichier est crypter");
 		else
 			System.out.println("Le fichier est en clair");
-		return null;
+
+		File out = new File(output);
+		if (!out.exists())
+			try {
+				out.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		byte[] cleanHeader = new byte[l];
+		// recup des premier bit en claire
+		for (int i = 0; i < l; i++) {
+			int tmp = (f[i] & 0xff);
+			cleanHeader[i] = (byte) (tmp ^ Core.PDF_HEADER[i]);
+		}
+		System.out.println("Suite recupérer");
+		System.out.println("i \t cleanH PDFH \t crypt^clean");
+		String s = byteToString(cleanHeader);
+		System.out.println("s = " + s);
+		for (int i = 0; i < cleanHeader.length; i++) {
+			System.out.println(i + "	" + cleanHeader[i] + "\t"
+					+ Core.PDF_HEADER[i] + "\t" + (f[i] ^ cleanHeader[i]));
+		}
+		LFSR lfsr = Core.findLFSR(s);
+		lfsr.decrypt(input, output);
+
+		return lfsr;
 	}
-	
-	public boolean checkEncryptedFile(byte[] f, String path){
-		if(path.endsWith("pdf")){
+
+	private String byteToString(byte[] b) {
+		String s = "";
+		for(int i = 0; i < b.length; i++){
+			s += String.format("%8s", Integer.toBinaryString(b[i] & 0xFF)).replace(' ', '0');
+		}
+		return s;
+	}
+
+	public int checkEncryptedFile(byte[] f, String path) {
+		if (path.endsWith("pdf")) {
 			System.out.println("Find pdf file");
-			for(int i = 0; i < Core.PDF_HEADER.length; i++)
-				if(Core.PDF_HEADER[i] != f[i])
-					return true;
-		}else{
+			for (int i = 0; i < Core.PDF_HEADER.length; i++)
+				if (Core.PDF_HEADER[i] != f[i])
+					return Core.PDF_HEADER.length;
+		} else {
 			System.err.println("File type not handle");
 		}
-		
-		
-		return false;
+
+		return -1;
 	}
 }

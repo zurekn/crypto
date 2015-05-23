@@ -1,8 +1,11 @@
 package ihm;
 
+import io.FileRW;
+
 import java.io.File;
 import java.io.IOException;
 
+import massey.Core;
 import engine.LFSR;
 import polynomial.Polynomial;
 import polynomial.PolynomialCalculator;
@@ -122,6 +125,7 @@ public class IHMHandler {
 			String input, String output) {
 		File in = new File(input);
 		File out = new File(output);
+		System.out.println("Crypt file ["+in.getAbsolutePath()+"] to ["+out.getAbsolutePath()+"]");
 		if (!in.exists())
 			return 0;
 		if (!out.exists())
@@ -154,6 +158,7 @@ public class IHMHandler {
 			String input, String output) {
 		File in = new File(input);
 		File out = new File(output);
+		System.out.println("Crypt file ["+in.getAbsolutePath()+"] to ["+out.getAbsolutePath()+"]");
 		if (!in.exists())
 			return 0;
 		if (!out.exists())
@@ -188,5 +193,30 @@ public class IHMHandler {
 		} catch (NumberFormatException e) {
 			return "Error " + e.getLocalizedMessage();
 		}
+	}
+
+	public String decryptMassey(String path) {
+		File file = new File(path);
+		//on supose que cest un pdf
+		byte []f = FileRW.readBinaryFile(path);
+		if(checkEncryptedFile(f, path))
+			System.out.println("Le fichier est crypter");
+		else
+			System.out.println("Le fichier est en clair");
+		return null;
+	}
+	
+	public boolean checkEncryptedFile(byte[] f, String path){
+		if(path.endsWith("pdf")){
+			System.out.println("Find pdf file");
+			for(int i = 0; i < Core.PDF_HEADER.length; i++)
+				if(Core.PDF_HEADER[i] != f[i])
+					return true;
+		}else{
+			System.err.println("File type not handle");
+		}
+		
+		
+		return false;
 	}
 }

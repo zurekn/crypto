@@ -617,6 +617,12 @@ public class IHM {
 		panel_12.add(btnRecuptLfsr);
 		
 		JButton btnDecrypter = new JButton("Decrypter");
+		btnDecrypter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String out = handler.decryptMassey(txtFichierCrypter.getText());
+				
+			}
+		});
 		panel_12.add(btnDecrypter);
 		
 		JPanel panel_11 = new JPanel();

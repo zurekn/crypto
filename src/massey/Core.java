@@ -6,6 +6,8 @@ import engine.LFSR;
 
 public abstract class Core {
 
+	public static byte[] PDF_HEADER = {37,80,68,70,45,49,46,52,10,37};
+	
 	public static LFSR findLFSR(String input){
 		LFSR lfsr = null;
 		int m = -1;

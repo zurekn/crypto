@@ -558,13 +558,10 @@ public class FileDrop {
 	} // end isDragOk
 
 	/** Outputs <tt>message</tt> to <tt>out</tt> if it's not null. */
-	private static void log(java.io.PrintStream out, String message) { // Log
-																		// message
-																		// if
-																		// requested
-		if (out != null)
+	private static void log(java.io.PrintStream out, String message) { 
+		if (out != null && false)
 			out.println(message);
-	} // end log
+	} 
 
 	/**
 	 * Removes the drag-and-drop hooks from the component and optionally from

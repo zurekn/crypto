@@ -1,5 +1,7 @@
 package massey;
 
+import java.util.HashMap;
+
 import polynomial.Polynomial;
 import polynomial.PolynomialCalculator;
 import engine.LFSR;
@@ -7,6 +9,14 @@ import engine.LFSR;
 public abstract class Core {
 
 	public static byte[] PDF_HEADER = {37,80,68,70,45,49,46,52,10,37};
+	
+	public static HashMap<String, byte[]> HEADERS = new HashMap<String, byte[]>();
+	
+	public static final int limit = 50;
+	
+	public static void initCore(){
+		HEADERS.put("pdf", PDF_HEADER);
+	}
 	
 	public static LFSR findLFSR(String input){
 		LFSR lfsr = null;
@@ -17,7 +27,7 @@ public abstract class Core {
 		Polynomial g = new Polynomial(tab);
 		Polynomial f = new Polynomial(tab);
 		Polynomial t = new Polynomial(tab);
-		for(int n = 0; n < input.length(); n++){
+		for(int n = 0; n < input.length() && n <= limit; n++){
 			d = Integer.parseInt(""+input.charAt(n));
 			
 			//Somme de 1 à L de Ci * input(n-i)
@@ -49,7 +59,8 @@ public abstract class Core {
 		for(int i = 0; i < L ;i++){
 			s+=etat.charAt(L-1-i);
 		}
-		
+		if(s.length() > 32)
+			s = s.substring(0, 30);
 		lfsr = new LFSR(L, f.getIndices(), Integer.parseInt(s, 2));
 //		10001111011101010110000001101000001000010101111111
 //		10001111011101010110000001101000001000010101111111

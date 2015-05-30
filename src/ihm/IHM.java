@@ -44,6 +44,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class IHM {
 
@@ -66,6 +68,7 @@ public class IHM {
 	private JTextField txtFichierCrypter;
 	private JTextField txtPolynomeDeRetroaction;
 	private JTextField txtPolynomeDeSortie;
+	private JComboBox masseyFileType;
 	
 	/**
 	 * Launch the application.
@@ -94,6 +97,8 @@ public class IHM {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Core.initCore();
+		
 		frmCrypto = new JFrame();
 		frmCrypto.setTitle("Crypto");
 		frmCrypto.setBounds(100, 100, 673, 448);
@@ -558,9 +563,9 @@ public class IHM {
 		panelMassey.add(panel_8);
 		GridBagLayout gbl_panel_8 = new GridBagLayout();
 		gbl_panel_8.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_8.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_8.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_8.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_8.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_8.rowWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_8.setLayout(gbl_panel_8);
 		
 		JLabel lblSuiteChiffrante = new JLabel("Suite Chiffrante : ");
@@ -568,7 +573,7 @@ public class IHM {
 		gbc_lblSuiteChiffrante.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSuiteChiffrante.anchor = GridBagConstraints.EAST;
 		gbc_lblSuiteChiffrante.gridx = 0;
-		gbc_lblSuiteChiffrante.gridy = 1;
+		gbc_lblSuiteChiffrante.gridy = 0;
 		panel_8.add(lblSuiteChiffrante, gbc_lblSuiteChiffrante);
 		
 		txtSuiteChiffranteMassey = new JTextField();
@@ -577,7 +582,7 @@ public class IHM {
 		gbc_txtSuiteChiffranteMassey.insets = new Insets(0, 0, 5, 0);
 		gbc_txtSuiteChiffranteMassey.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtSuiteChiffranteMassey.gridx = 1;
-		gbc_txtSuiteChiffranteMassey.gridy = 1;
+		gbc_txtSuiteChiffranteMassey.gridy = 0;
 		panel_8.add(txtSuiteChiffranteMassey, gbc_txtSuiteChiffranteMassey);
 		txtSuiteChiffranteMassey.setColumns(10);
 		
@@ -585,27 +590,30 @@ public class IHM {
 		new FileDrop( System.out, txtFichierCrypter, new FileDrop.Listener() {   
 		 	public void filesDropped( java.io.File[] files ){
 		 		for( int i = 0; i < files.length; i++ ){  
-		 			try{   txtFichierCrypter.setText(( files[i].getCanonicalPath() ));
+		 			try{   
+		 				txtFichierCrypter.setText(( files[i].getCanonicalPath() ));
+		 				getFileEnding(files[i].getCanonicalPath());
 		             } catch( java.io.IOException e ) {}
 		         }  
 		     }   
 		 });
-		txtFichierCrypter.setHorizontalAlignment(SwingConstants.LEFT);
+		txtFichierCrypter.setHorizontalAlignment(SwingConstants.CENTER);
 		txtFichierCrypter.setText("Deplacer le fichier crypter ici");
 		GridBagConstraints gbc_txtFichierCrypter = new GridBagConstraints();
-		gbc_txtFichierCrypter.gridwidth = 2;
-		gbc_txtFichierCrypter.gridheight = 3;
+		gbc_txtFichierCrypter.gridwidth = 3;
+		gbc_txtFichierCrypter.gridheight = 4;
 		gbc_txtFichierCrypter.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFichierCrypter.fill = GridBagConstraints.BOTH;
 		gbc_txtFichierCrypter.gridx = 0;
-		gbc_txtFichierCrypter.gridy = 2;
+		gbc_txtFichierCrypter.gridy = 1;
 		panel_8.add(txtFichierCrypter, gbc_txtFichierCrypter);
 		txtFichierCrypter.setColumns(10);
 		
 		JPanel panel_12 = new JPanel();
 		GridBagConstraints gbc_panel_12 = new GridBagConstraints();
+		gbc_panel_12.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_12.gridwidth = 2;
-		gbc_panel_12.fill = GridBagConstraints.BOTH;
+		gbc_panel_12.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_12.gridx = 0;
 		gbc_panel_12.gridy = 5;
 		panel_8.add(panel_12, gbc_panel_12);
@@ -616,6 +624,7 @@ public class IHM {
 			public void actionPerformed(ActionEvent e) {
 				LFSR lfsr = Core.findLFSR(txtSuiteChiffranteMassey.getText());
 				txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
+				txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
 			}
 		});
 		panel_12.add(btnRecuptLfsr);
@@ -623,17 +632,29 @@ public class IHM {
 		JButton btnDecrypter = new JButton("Decrypter");
 		btnDecrypter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(masseyFileType.getSelectedItem().equals("") )
+					JOptionPane.showMessageDialog(null, "Le type de fichier ne peut être vide",  "Type error", JOptionPane.ERROR_MESSAGE);
+				else{
 				String output = JOptionPane.showInputDialog("Entrez le chemin du fichier de sortie : \n "+txtFichierCrypter.getText()+"\n Laissez vide pour avoir le chemin par default");
 				if(output.isEmpty()){
 					File file = new File(txtFichierCrypter.getText());
 					output = file.getParent()+File.separator+"MasseyDecrypted"+file.getName();
 				}
-				LFSR lfsr = handler.decryptMassey(txtFichierCrypter.getText(), output);
-				txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
+				
+					LFSR lfsr = handler.decryptMassey(txtFichierCrypter.getText(), output, (String)masseyFileType.getSelectedItem());
+					txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
+					txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
+
+				}
 				
 			}
 		});
 		panel_12.add(btnDecrypter);
+		
+		masseyFileType = new JComboBox();
+		masseyFileType.setToolTipText("Selectionnez le type de fichier si necessaire.");
+		masseyFileType.setModel(new DefaultComboBoxModel(new String[] {"", "pdf", "png", "jpg", "jpeg", "doc", "xml"}));
+		panel_12.add(masseyFileType);
 		
 		JPanel panel_11 = new JPanel();
 		panelMassey.add(panel_11);
@@ -663,9 +684,9 @@ public class IHM {
 		panel_11.add(txtPolynomeDeRetroaction, gbc_txtPolynomeDeRetroaction);
 		txtPolynomeDeRetroaction.setColumns(10);
 		
-		JLabel lblPolynomeDeSortie = new JLabel("Polynome de sortie : ");
+		JLabel lblPolynomeDeSortie = new JLabel("Suite chiffrante : ");
 		GridBagConstraints gbc_lblPolynomeDeSortie = new GridBagConstraints();
-		gbc_lblPolynomeDeSortie.anchor = GridBagConstraints.EAST;
+		gbc_lblPolynomeDeSortie.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
 		gbc_lblPolynomeDeSortie.gridx = 0;
 		gbc_lblPolynomeDeSortie.gridy = 2;
@@ -682,4 +703,37 @@ public class IHM {
 		panel_11.add(txtPolynomeDeSortie, gbc_txtPolynomeDeSortie);
 		txtPolynomeDeSortie.setColumns(10);
 	}
+	
+	private String getFileEnding(String path){
+		if(path.endsWith("pdf")){
+			masseyFileType.setSelectedItem("pdf");
+			return "pdf";
+		}
+		if(path.endsWith("png")){
+			masseyFileType.setSelectedItem("png");
+			return "png";
+		}
+		if(path.endsWith("jpg")){
+			masseyFileType.setSelectedItem("jpg");
+			return "jpg";
+		}
+		if(path.endsWith("doc")){
+			masseyFileType.setSelectedItem("doc");
+			return "doc";
+		}
+		if(path.endsWith("xml")){
+			masseyFileType.setSelectedItem("xml");
+			return "xml";
+		}
+		if(path.endsWith("jpeg")){
+			masseyFileType.setSelectedItem("jpeg");
+			return "jpeg";
+		}
+		if(path.endsWith("png")){
+			masseyFileType.setSelectedItem("png");
+			return "png";
+		}
+		return ""	;
+	}
+
 }

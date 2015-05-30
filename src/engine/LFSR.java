@@ -37,6 +37,10 @@ public class LFSR {
 		init(coefficients, etat);
 	}
 
+	public int getEtatInit(){
+		return etatInit;
+	}
+	
 	public int getLongeur(){
 		return longueur;
 	}

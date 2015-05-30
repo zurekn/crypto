@@ -9,6 +9,7 @@ import engine.LFSR;
 public abstract class Core {
 
 	public static byte[] PDF_HEADER = {37,80,68,70,45,49,46,52,10,37};
+	public static byte[] JPG_HEADER = {-1,-40,-1};
 	
 	public static HashMap<String, byte[]> HEADERS = new HashMap<String, byte[]>();
 	
@@ -16,6 +17,8 @@ public abstract class Core {
 	
 	public static void initCore(){
 		HEADERS.put("pdf", PDF_HEADER);
+		HEADERS.put("jpg", JPG_HEADER);
+		HEADERS.put("jpeg", JPG_HEADER);
 	}
 	
 	public static LFSR findLFSR(String input){

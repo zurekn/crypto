@@ -5,7 +5,7 @@ import io.FileRW;
 import java.io.File;
 import java.io.IOException;
 
-import massey.Core;
+import engine.MasseyCore;
 import engine.LFSR;
 import polynomial.Polynomial;
 import polynomial.PolynomialCalculator;
@@ -205,7 +205,7 @@ public class IHMHandler {
 				+ "]");
 		// on supose que cest un pdf
 		byte[] f = FileRW.readBinaryFile(input);
-		byte[] header = Core.HEADERS.get(fileType);
+		byte[] header = MasseyCore.HEADERS.get(fileType);
 		int l = checkEncryptedFile(f, header);
 		if (l > 0)
 			System.out.println("Le fichier est crypter");
@@ -235,7 +235,7 @@ public class IHMHandler {
 			System.out.println(i + "	" + cleanHeader[i] + "\t"
 					+ header[i] + "\t" + (f[i] ^ cleanHeader[i]));
 		}
-		LFSR lfsr = Core.findLFSR(s);
+		LFSR lfsr = MasseyCore.findLFSR(s);
 		lfsr.decrypt(input, output);
 
 		return lfsr;

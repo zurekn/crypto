@@ -20,12 +20,9 @@ public abstract class PolynomialCalculator {
 		int[] result = new int[max+1];
 		int i;
 		for (i = 0; i<max; i++) {
-			int n = result[i] + p.getValue(i) + q.getValue(i);
-			if (n >= 2 && i < result.length - 1)
-				result[i + 1] = 1;
+			int n = p.getValue(i) + q.getValue(i);
 			result[i] = n % 2;
-		}
-		
+		}		
 		for (int j = i; j <= dP; j++)
 			result[j] = p.getValue(j);
 		for (int j = i; j <= dQ; j++)
@@ -131,7 +128,7 @@ public abstract class PolynomialCalculator {
 					result.addElement(1, n);
 				} catch (ExistingElementException e) {
 					System.err
-							.println("Réécriture au lieu de rajout dans le polynôme");
+							.println("Rï¿½ï¿½criture au lieu de rajout dans le polynï¿½me");
 					result.setValue(n, 1);
 				}
 				int[] tab = new int[1];

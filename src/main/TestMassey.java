@@ -1,14 +1,14 @@
 package main;
 
 import engine.LFSR;
-import massey.Core;
+import engine.MasseyCore;
 
 public class TestMassey {
 
 	public static void main(String[] args) {
 
 		String s = "0110010101";
-		LFSR lfsr = Core.findLFSR(s);
+		LFSR lfsr = MasseyCore.findLFSR(s);
 
 		System.out.println("___________\n");
 		System.out.println(s);
@@ -19,7 +19,7 @@ public class TestMassey {
 		int P[] = { 0, 1, 2, 4,6,8,10,15,27};
 		lfsr = new LFSR(27, P, Integer.parseInt("174FE2", 16));
 		s = lfsr.genere(69);
-		LFSR l = Core.findLFSR(s);
+		LFSR l = MasseyCore.findLFSR(s);
 		suite = l.genere(69);
 		System.out.println(s);
 		System.out.println(suite);

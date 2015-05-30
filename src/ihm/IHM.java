@@ -37,7 +37,7 @@ import javax.swing.JTextArea;
 
 import polynomial.Polynomial;
 import engine.LFSR;
-import massey.Core;
+import engine.MasseyCore;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -97,7 +97,7 @@ public class IHM {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Core.initCore();
+		MasseyCore.initCore();
 		
 		frmCrypto = new JFrame();
 		frmCrypto.setTitle("Crypto");
@@ -622,7 +622,7 @@ public class IHM {
 		JButton btnRecuptLfsr = new JButton("Recupt LFSR");
 		btnRecuptLfsr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LFSR lfsr = Core.findLFSR(txtSuiteChiffranteMassey.getText());
+				LFSR lfsr = MasseyCore.findLFSR(txtSuiteChiffranteMassey.getText());
 				txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
 				txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
 			}
@@ -684,7 +684,7 @@ public class IHM {
 		panel_11.add(txtPolynomeDeRetroaction, gbc_txtPolynomeDeRetroaction);
 		txtPolynomeDeRetroaction.setColumns(10);
 		
-		JLabel lblPolynomeDeSortie = new JLabel("Suite chiffrante : ");
+		JLabel lblPolynomeDeSortie = new JLabel("Polynome d'initialisation : ");
 		GridBagConstraints gbc_lblPolynomeDeSortie = new GridBagConstraints();
 		gbc_lblPolynomeDeSortie.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
@@ -694,7 +694,7 @@ public class IHM {
 		
 		txtPolynomeDeSortie = new JTextField();
 		txtPolynomeDeSortie.setEditable(false);
-		txtPolynomeDeSortie.setText("Polynome de sortie");
+		txtPolynomeDeSortie.setText("Polynome");
 		GridBagConstraints gbc_txtPolynomeDeSortie = new GridBagConstraints();
 		gbc_txtPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
 		gbc_txtPolynomeDeSortie.fill = GridBagConstraints.HORIZONTAL;

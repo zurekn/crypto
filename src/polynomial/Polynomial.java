@@ -7,7 +7,7 @@ import exception.WrongArgumentException;
 import io.FileRW;
 
 public class Polynomial {
-	private final String WAE_MESSAGE = "Les coefficients doivent �tre 0 ou 1";
+	private final String WAE_MESSAGE = "Les coefficients doivent être 0 ou 1";
 
 	private int[] polynomial = {};
 
@@ -32,6 +32,7 @@ public class Polynomial {
 	public Polynomial(int[] p) {
 		try {
 			if (p.length > 0) {
+				Arrays.sort(p);
 				polynomial = new int[p[p.length - 1] + 1];
 				for (int i = 0; i < p.length; i++) {
 					polynomial[p[i]] = 1;
@@ -40,12 +41,7 @@ public class Polynomial {
 		} catch (NullPointerException npe) {
 			System.err.println("Tableau null.");
 			polynomial = new int[0];
-		} catch (IndexOutOfBoundsException e) {
-			polynomial = new int[0];
-			System.err
-					.println("Les indices dans le tableau doivent �tre positif et croissant.");
-
-		}
+		} 
 	}
 
 	public int getDegree() {

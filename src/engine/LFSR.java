@@ -111,38 +111,8 @@ public class LFSR {
 		FileRW.writeBinaryFile(data, destPath);
 	}
 	
-	@Deprecated
-	public String encrypt(LFSR lfsr, String sourcePath, String destPath){
-		StringBuilder suiteLFSR = new StringBuilder();
-		StringBuilder sb;
-		byte[] data = FileRW.readBinaryFile(sourcePath);
-		String s;
-		for(int i=0; i < data.length;i++){
-			int tmp = (data[i] & 0xFF);
-			sb = new StringBuilder();
-			while(sb.length()<8){
-			s = this.genere(1);
-				if(lfsr.genere(1).equals("1")){
-					sb.append(s);
-					suiteLFSR.append(s);
-				}
-			}
-			data[i]= (byte) (tmp^Integer.parseInt(sb.toString(),2));
-		}
-		
-		FileRW.writeBinaryFile(data, destPath);
-		return suiteLFSR.toString();
-	}
-	
-	
-	
 	public void decrypt(String sourcePath, String destPath){
 		encrypt(sourcePath,destPath);
-	}
-	
-	@Deprecated
-	public void decrypt(LFSR lfsr, String sourcePath, String destPath){
-		encrypt(lfsr, sourcePath,destPath);
 	}
 	
 	public long getPeriod(long max){

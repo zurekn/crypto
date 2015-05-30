@@ -1,4 +1,4 @@
-package massey;
+package engine;
 
 import java.util.HashMap;
 
@@ -6,7 +6,7 @@ import polynomial.Polynomial;
 import polynomial.PolynomialCalculator;
 import engine.LFSR;
 
-public abstract class Core {
+public abstract class MasseyCore {
 
 	public static byte[] PDF_HEADER = {37,80,68,70,45,49,46,52,10,37};
 	
@@ -44,7 +44,7 @@ public abstract class Core {
 				t = f;
 				int []tab2 = {n-m};
 				Polynomial X = new Polynomial(tab2);
-				f = (PolynomialCalculator.substract(f, PolynomialCalculator.multiply(g, X)));
+				f = (PolynomialCalculator.add(f, PolynomialCalculator.multiply(g, X)));
 				if (2 * L <= n){
 					L = n +1 - L;
 					m = n;
@@ -62,7 +62,6 @@ public abstract class Core {
 		if(s.length() > 32)
 			s = s.substring(0, 30);
 		lfsr = new LFSR(L, f.getIndices(), Integer.parseInt(s, 2));
-//		10001111011101010110000001101000001000010101111111
 //		10001111011101010110000001101000001000010101111111
 		return lfsr;
 	}

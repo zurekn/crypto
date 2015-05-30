@@ -239,10 +239,10 @@ public class IHMHandler {
 
 	private String byteToString(byte[] b) {
 		String s = "";
-		for(int i = 0; i < b.length; i++){
+		for(int i = 0; i < b.length ; i++){
 			s += String.format("%8s", Integer.toBinaryString(b[i] & 0xFF)).replace(' ', '0');
 		}
-		return s;
+		return s.substring(0, 50);
 	}
 
 	public int checkEncryptedFile(byte[] f, String path) {

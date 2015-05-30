@@ -51,8 +51,8 @@ public abstract class Core {
 		}
 		
 		lfsr = new LFSR(L, f.getIndices(), Integer.parseInt(s, 2));
-
-		
+//		10001111011101010110000001101000001000010101111111
+//		10001111011101010110000001101000001000010101111111
 		return lfsr;
 	}
 }

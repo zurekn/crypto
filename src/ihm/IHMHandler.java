@@ -15,7 +15,7 @@ public class IHMHandler {
 	private String currentAction = "Addition";
 	private Polynomial P1;
 	private Polynomial P2;
-	private int P2bis;
+	private int puissance;
 	private LFSR lfsr;
 
 	public enum Actions {
@@ -52,7 +52,7 @@ public class IHMHandler {
 	public String getP2() {
 		if (currentAction == Actions.Exponentiation.name()
 				|| currentAction == Actions.Modulo.name())
-			return "" + P2bis;
+			return "" + puissance;
 		return P2.toString();
 	}
 
@@ -68,7 +68,7 @@ public class IHMHandler {
 	/* =======METHODS========= */
 	/* ======================= */
 
-	public String calculate(String P1, String P2) {
+	public String calculate(String P1, String P2, String Puissance) {
 		if (P1.isEmpty() || P1.equals(" ") || P2.isEmpty() || P2.equals(" "))
 			return null;
 
@@ -80,10 +80,12 @@ public class IHMHandler {
 
 		this.P1 = new Polynomial(p1);
 
-		if (currentAction == Actions.Exponentiation.name()
-				|| currentAction == Actions.Modulo.name()) {
-			this.P2bis = Integer.parseInt(P2);
-		} else {
+		if(currentAction != Actions.Modulo.name()){
+			if(currentAction == Actions.Exponentiation.name()){
+				if(Puissance.isEmpty() || Puissance.equals(" "))
+					return null;
+				this.puissance = Integer.parseInt(Puissance);
+			}
 			split = P2.split(",");
 			p1 = new int[split.length];
 			for (int i = 0; i < split.length; i++)
@@ -97,10 +99,10 @@ public class IHMHandler {
 			return PolynomialCalculator.add(this.P1, this.P2).toString();
 		if (currentAction == Actions.Multiplication.name())
 			return PolynomialCalculator.multiply(this.P1, this.P2).toString();
-		if (currentAction == Actions.Modulo.name())
-			return PolynomialCalculator.pow(this.P1, this.P2bis).toString();
 		if (currentAction == Actions.Exponentiation.name())
-			return PolynomialCalculator.pow(this.P1, this.P2bis).toString();
+			return PolynomialCalculator.expMod(this.P1, puissance,this.P2).toString();
+		if (currentAction == Actions.Modulo.name())
+			return PolynomialCalculator.mod(this.P1, this.P2).toString();
 
 		return "";
 	}

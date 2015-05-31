@@ -56,6 +56,7 @@ public class IHM {
 	private JComboBox masseyFileType;
 	private JTextField txtSuiteOutMassey;
 	private JTextField txtLongueur;
+	private JTextField txtPuissance;
 
 	/**
 	 * Launch the application.
@@ -101,7 +102,7 @@ public class IHM {
 
 		JPanel panel_1 = new JPanel();
 		panelPolynome.add(panel_1, BorderLayout.NORTH);
-		panel_1.setLayout(new GridLayout(2, 0, 0, 0));
+		panel_1.setLayout(new GridLayout(3, 0, 0, 0));
 
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2);
@@ -140,6 +141,19 @@ public class IHM {
 		txtPolynome_1.setText("Polynôme 2");
 		panel_3.add(txtPolynome_1);
 		txtPolynome_1.setColumns(10);
+		
+		JPanel panel_13 = new JPanel();
+		panel_1.add(panel_13);
+		panel_13.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblPuissance = new JLabel(" Puissance : ");
+		panel_13.add(lblPuissance);
+		
+		txtPuissance = new JTextField();
+		txtPuissance.setEditable(false);
+		txtPuissance.setText(" Puissance");
+		panel_13.add(txtPuissance);
+		txtPuissance.setColumns(10);
 
 		JPanel panel_4 = new JPanel();
 		panelPolynome.add(panel_4, BorderLayout.CENTER);
@@ -154,6 +168,8 @@ public class IHM {
 		rdbtnAddition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				handler.setOpperation(arg0.getActionCommand());
+				txtPuissance.setEditable(false);
+				txtPuissance.setEditable(false);
 			}
 		});
 		rdbtnAddition.setToolTipText("Addition entre les polynômes 1 et 2");
@@ -186,6 +202,7 @@ public class IHM {
 		rdbtnModulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				handler.setOpperation(e.getActionCommand());
+				txtPuissance.setEditable(false);
 			}
 		});
 		rdbtnModulo.setToolTipText("Modulo du polynôme 1, mettre la valeur du modulo dans la case polynôme 2\r\n");
@@ -201,6 +218,7 @@ public class IHM {
 		rdbtnExponentiation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				handler.setOpperation(e.getActionCommand());
+				txtPuissance.setEditable(true);
 			}
 		});
 		rdbtnExponentiation.setToolTipText("Exponentiation du polynôme 1, mettre la valeur de l'exponentielle dans la case polynôme 2");
@@ -223,7 +241,7 @@ public class IHM {
 		JButton btnCalculer = new JButton("Calculer");
 		btnCalculer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String result = handler.calculate(txtPolynome.getText(), txtPolynome_1.getText());
+				String result = handler.calculate(txtPolynome.getText(), txtPolynome_1.getText(), txtPuissance.getText());
 				if (result.equals(null))
 					return;
 				txtP1.setText(handler.getP1());

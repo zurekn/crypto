@@ -54,6 +54,7 @@ public class IHM {
 	@SuppressWarnings("rawtypes")
 	private JComboBox masseyFileType;
 	private JTextField txtSuiteOutMassey;
+	private JTextField txtLongueur;
 
 	/**
 	 * Launch the application.
@@ -582,7 +583,8 @@ public class IHM {
 		txtSuiteChiffranteMassey.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				txtSuiteChiffranteMassey.setText("");
+				if (txtSuiteChiffranteMassey.getText().equals("Suite Chiffrante"))
+					txtSuiteChiffranteMassey.setText("");
 			}
 		});
 		txtSuiteChiffranteMassey.setText("Suite Chiffrante");
@@ -636,6 +638,7 @@ public class IHM {
 				txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
 				lfsr.reset();
 				txtSuiteOutMassey.setText(lfsr.genere(50));
+				txtLongueur.setText(lfsr.getLongeur() + "");
 			}
 		});
 		panel_12.add(btnRecuptLfsr);
@@ -657,10 +660,13 @@ public class IHM {
 						}
 
 						LFSR lfsr = handler.decryptMassey(txtFichierCrypter.getText(), output, (String) masseyFileType.getSelectedItem());
-						txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
-						txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
-						lfsr.reset();
-						txtSuiteOutMassey.setText(lfsr.genere(50));
+						if (lfsr != null) {
+							txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
+							txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
+							lfsr.reset();
+							txtSuiteOutMassey.setText(lfsr.genere(50));
+							txtLongueur.setText(lfsr.getLongeur() + "");
+						}
 					}
 				}
 
@@ -677,9 +683,9 @@ public class IHM {
 		panelMassey.add(panel_11);
 		GridBagLayout gbl_panel_11 = new GridBagLayout();
 		gbl_panel_11.columnWidths = new int[] { 0, 0, 0, 0 };
-		gbl_panel_11.rowHeights = new int[] { 0, 0, 0, 0, 0 };
+		gbl_panel_11.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
 		gbl_panel_11.columnWeights = new double[] { 0.0, 1.0, 1.0, Double.MIN_VALUE };
-		gbl_panel_11.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_11.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_11.setLayout(gbl_panel_11);
 
 		JLabel lblPolynomeDeRetroaction = new JLabel("Polynome de retroaction : ");
@@ -719,25 +725,44 @@ public class IHM {
 		gbc_txtPolynomeDeSortie.gridy = 2;
 		panel_11.add(txtPolynomeDeSortie, gbc_txtPolynomeDeSortie);
 		txtPolynomeDeSortie.setColumns(10);
-		
+
 		JLabel lblSuiteChiffrante_1 = new JLabel("Suite Chiffrante :");
 		GridBagConstraints gbc_lblSuiteChiffrante_1 = new GridBagConstraints();
-		gbc_lblSuiteChiffrante_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSuiteChiffrante_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSuiteChiffrante_1.anchor = GridBagConstraints.EAST;
 		gbc_lblSuiteChiffrante_1.gridx = 0;
 		gbc_lblSuiteChiffrante_1.gridy = 3;
 		panel_11.add(lblSuiteChiffrante_1, gbc_lblSuiteChiffrante_1);
-		
+
 		txtSuiteOutMassey = new JTextField();
 		txtSuiteOutMassey.setEditable(false);
 		txtSuiteOutMassey.setText("Suite Chiffrante");
 		GridBagConstraints gbc_txtSuiteOutMassey = new GridBagConstraints();
-		gbc_txtSuiteOutMassey.insets = new Insets(0, 0, 0, 5);
+		gbc_txtSuiteOutMassey.insets = new Insets(0, 0, 5, 5);
 		gbc_txtSuiteOutMassey.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtSuiteOutMassey.gridx = 1;
 		gbc_txtSuiteOutMassey.gridy = 3;
 		panel_11.add(txtSuiteOutMassey, gbc_txtSuiteOutMassey);
 		txtSuiteOutMassey.setColumns(10);
+
+		JLabel lblLongueur_1 = new JLabel("Longueur :");
+		GridBagConstraints gbc_lblLongueur_1 = new GridBagConstraints();
+		gbc_lblLongueur_1.anchor = GridBagConstraints.EAST;
+		gbc_lblLongueur_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblLongueur_1.gridx = 0;
+		gbc_lblLongueur_1.gridy = 4;
+		panel_11.add(lblLongueur_1, gbc_lblLongueur_1);
+
+		txtLongueur = new JTextField();
+		txtLongueur.setEditable(false);
+		txtLongueur.setText("Longueur");
+		GridBagConstraints gbc_txtLongueur = new GridBagConstraints();
+		gbc_txtLongueur.insets = new Insets(0, 0, 0, 5);
+		gbc_txtLongueur.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLongueur.gridx = 1;
+		gbc_txtLongueur.gridy = 4;
+		panel_11.add(txtLongueur, gbc_txtLongueur);
+		txtLongueur.setColumns(10);
 	}
 
 	private String getFileEnding(String path) {

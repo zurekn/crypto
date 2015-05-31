@@ -1,42 +1,35 @@
 package ihm;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
 import java.awt.BorderLayout;
-
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-
-import javax.swing.JLabel;
-
-import java.awt.Insets;
-
-import javax.swing.JRadioButton;
-
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.io.File;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.File;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import polynomial.Polynomial;
 import engine.LFSR;
 import engine.MasseyCore;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 public class IHM {
 
@@ -59,8 +52,11 @@ public class IHM {
 	private JTextField txtFichierCrypter;
 	private JTextField txtPolynomeDeRetroaction;
 	private JTextField txtPolynomeDeSortie;
+	@SuppressWarnings("rawtypes")
 	private JComboBox masseyFileType;
-	
+	private JTextField txtSuiteOutMassey;
+	private JTextField txtLongueur;
+
 	/**
 	 * Launch the application.
 	 */
@@ -87,31 +83,32 @@ public class IHM {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unused")
 	private void initialize() {
 		MasseyCore.initCore();
-		
+
 		frmCrypto = new JFrame();
 		frmCrypto.setTitle("Mini projet crypto");
 		frmCrypto.setBounds(100, 100, 673, 448);
 		frmCrypto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmCrypto.getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
+
 		JPanel panelPolynome = new JPanel();
 		tabbedPane.addTab("Polynômes", null, panelPolynome, null);
 		panelPolynome.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_1 = new JPanel();
 		panelPolynome.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new GridLayout(2, 0, 0, 0));
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2);
 		
 		JLabel lblPolynome = new JLabel("Polynôme 1 :");
 		panel_2.add(lblPolynome);
-		
+
 		txtPolynome = new JTextField();
 		txtPolynome.addFocusListener(new FocusAdapter() {
 			@Override
@@ -124,13 +121,13 @@ public class IHM {
 		txtPolynome.setText("Polynôme 1");
 		panel_2.add(txtPolynome);
 		txtPolynome.setColumns(10);
-		
+
 		JPanel panel_3 = new JPanel();
 		panel_1.add(panel_3);
 		
 		JLabel lblPolynome_1 = new JLabel("Polynôme 2 :");
 		panel_3.add(lblPolynome_1);
-		
+
 		txtPolynome_1 = new JTextField();
 		txtPolynome_1.addFocusListener(new FocusAdapter() {
 			@Override
@@ -143,16 +140,16 @@ public class IHM {
 		txtPolynome_1.setText("Polynôme 2");
 		panel_3.add(txtPolynome_1);
 		txtPolynome_1.setColumns(10);
-		
+
 		JPanel panel_4 = new JPanel();
 		panelPolynome.add(panel_4, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[]{162, 162, 162, 162, 0};
-		gbl_panel_4.rowHeights = new int[]{101, 93, 0};
-		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_4.columnWidths = new int[] { 162, 162, 162, 162, 0 };
+		gbl_panel_4.rowHeights = new int[] { 101, 93, 0 };
+		gbl_panel_4.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_4.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		panel_4.setLayout(gbl_panel_4);
-		
+
 		JRadioButton rdbtnAddition = new JRadioButton("Addition");
 		rdbtnAddition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -169,7 +166,7 @@ public class IHM {
 		gbc_rdbtnAddition.gridy = 0;
 		panel_4.add(rdbtnAddition, gbc_rdbtnAddition);
 		buttonGroup.add(rdbtnAddition);
-		
+
 		JRadioButton rdbtnMultiplication = new JRadioButton("Multiplication");
 		rdbtnMultiplication.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -184,7 +181,7 @@ public class IHM {
 		gbc_rdbtnMultiplication.gridy = 0;
 		panel_4.add(rdbtnMultiplication, gbc_rdbtnMultiplication);
 		buttonGroup.add(rdbtnMultiplication);
-		
+
 		JRadioButton rdbtnModulo = new JRadioButton("Modulo");
 		rdbtnModulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -199,7 +196,7 @@ public class IHM {
 		gbc_rdbtnModulo.gridy = 0;
 		panel_4.add(rdbtnModulo, gbc_rdbtnModulo);
 		buttonGroup.add(rdbtnModulo);
-		
+
 		JRadioButton rdbtnExponentiation = new JRadioButton("Exponentiation");
 		rdbtnExponentiation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -214,7 +211,7 @@ public class IHM {
 		gbc_rdbtnExponentiation.gridy = 0;
 		panel_4.add(rdbtnExponentiation, gbc_rdbtnExponentiation);
 		buttonGroup.add(rdbtnExponentiation);
-		
+
 		JLabel label = new JLabel(" ");
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.BOTH;
@@ -222,12 +219,12 @@ public class IHM {
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 1;
 		panel_4.add(label, gbc_label);
-		
+
 		JButton btnCalculer = new JButton("Calculer");
 		btnCalculer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String result = handler.calculate(txtPolynome.getText(), txtPolynome_1.getText());
-				if(result.equals(null))
+				if (result.equals(null))
 					return;
 				txtP1.setText(handler.getP1());
 				txtP2.setText(handler.getP2());
@@ -241,7 +238,7 @@ public class IHM {
 		gbc_btnCalculer.gridx = 1;
 		gbc_btnCalculer.gridy = 1;
 		panel_4.add(btnCalculer, gbc_btnCalculer);
-		
+
 		JLabel label_1 = new JLabel(" ");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.fill = GridBagConstraints.BOTH;
@@ -249,73 +246,73 @@ public class IHM {
 		gbc_label_1.gridx = 2;
 		gbc_label_1.gridy = 1;
 		panel_4.add(label_1, gbc_label_1);
-		
+
 		JPanel panel_5 = new JPanel();
 		panelPolynome.add(panel_5, BorderLayout.SOUTH);
 		panel_5.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_6 = new JPanel();
 		panel_5.add(panel_6, BorderLayout.CENTER);
 		
 		JLabel lblResultat = new JLabel("Résultat");
 		panel_6.add(lblResultat);
-		
+
 		txtPolynomeRes = new JTextField();
 		panel_6.add(txtPolynomeRes);
 		txtPolynomeRes.setEditable(false);
 		txtPolynomeRes.setText("Polynome res");
 		txtPolynomeRes.setColumns(10);
-		
+
 		JPanel panel_7 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_7.getLayout();
 		panel_5.add(panel_7, BorderLayout.NORTH);
 		
 		JLabel lblOpperation = new JLabel("Opération : ");
 		panel_7.add(lblOpperation);
-		
+
 		txtP1 = new JTextField();
 		txtP1.setEditable(false);
 		txtP1.setText("P1");
 		panel_7.add(txtP1);
 		txtP1.setColumns(10);
-		
+
 		txtOpperation = new JTextField();
 		txtOpperation.setEditable(false);
 		txtOpperation.setText("Opérateur");
 		panel_7.add(txtOpperation);
 		txtOpperation.setColumns(10);
-		
+
 		txtP2 = new JTextField();
 		txtP2.setEditable(false);
 		txtP2.setText("P2");
 		panel_7.add(txtP2);
 		txtP2.setColumns(10);
-		
+
 		JPanel panelLFSR = new JPanel();
 		tabbedPane.addTab("LFSR", null, panelLFSR, null);
 		panelLFSR.setLayout(new GridLayout(2, 0, 0, 0));
-		
+
 		JPanel panel_10 = new JPanel();
 		panelLFSR.add(panel_10);
 		GridBagLayout gbl_panel_10 = new GridBagLayout();
-		gbl_panel_10.columnWidths = new int[]{0, 0, 0, 0, 40, 0, 46, 0};
-		gbl_panel_10.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_10.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_10.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_10.columnWidths = new int[] { 0, 0, 0, 0, 40, 0, 46, 0 };
+		gbl_panel_10.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel_10.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_10.rowWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		panel_10.setLayout(gbl_panel_10);
-		
+
 		JLabel lblLfsr = new JLabel("LFSR : ");
 		GridBagConstraints gbc_lblLfsr = new GridBagConstraints();
 		gbc_lblLfsr.insets = new Insets(0, 0, 5, 5);
 		gbc_lblLfsr.gridx = 1;
 		gbc_lblLfsr.gridy = 0;
 		panel_10.add(lblLfsr, gbc_lblLfsr);
-		
+
 		txtLfsr = new JTextField();
 		txtLfsr.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				if(txtLfsr.getText().equals("LFSR"))
+				if (txtLfsr.getText().equals("LFSR"))
 					txtLfsr.setText("");
 			}
 		});
@@ -328,7 +325,7 @@ public class IHM {
 		gbc_txtLfsr.gridy = 0;
 		panel_10.add(txtLfsr, gbc_txtLfsr);
 		txtLfsr.setColumns(10);
-		
+
 		JLabel lblBase = new JLabel("Base : ");
 		GridBagConstraints gbc_lblBase = new GridBagConstraints();
 		gbc_lblBase.insets = new Insets(0, 0, 5, 5);
@@ -336,12 +333,12 @@ public class IHM {
 		gbc_lblBase.gridx = 5;
 		gbc_lblBase.gridy = 0;
 		panel_10.add(lblBase, gbc_lblBase);
-		
+
 		txtBase = new JTextField();
 		txtBase.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtBase.getText().equals("Base"))
+				if (txtBase.getText().equals("Base"))
 					txtBase.setText("");
 			}
 		});
@@ -353,19 +350,19 @@ public class IHM {
 		gbc_txtBase.gridy = 0;
 		panel_10.add(txtBase, gbc_txtBase);
 		txtBase.setColumns(10);
-		
+
 		JLabel lblRetroaction = new JLabel("Retroaction : ");
 		GridBagConstraints gbc_lblRetroaction = new GridBagConstraints();
 		gbc_lblRetroaction.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRetroaction.gridx = 1;
 		gbc_lblRetroaction.gridy = 2;
 		panel_10.add(lblRetroaction, gbc_lblRetroaction);
-		
+
 		txtRetroaction = new JTextField();
 		txtRetroaction.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtRetroaction.getText().equals("Retroaction"))
+				if (txtRetroaction.getText().equals("Retroaction"))
 					txtRetroaction.setText("");
 			}
 		});
@@ -378,19 +375,19 @@ public class IHM {
 		gbc_txtRetroaction.gridy = 2;
 		panel_10.add(txtRetroaction, gbc_txtRetroaction);
 		txtRetroaction.setColumns(10);
-		
+
 		JLabel lblLongueur = new JLabel("Longueur : ");
 		GridBagConstraints gbc_lblLongueur = new GridBagConstraints();
 		gbc_lblLongueur.insets = new Insets(0, 0, 5, 5);
 		gbc_lblLongueur.gridx = 1;
 		gbc_lblLongueur.gridy = 4;
 		panel_10.add(lblLongueur, gbc_lblLongueur);
-		
+
 		txtLength = new JTextField();
 		txtLength.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtLength.getText().equals("Length"))
+				if (txtLength.getText().equals("Length"))
 					txtLength.setText("");
 			}
 		});
@@ -403,19 +400,19 @@ public class IHM {
 		gbc_txtLength.gridy = 4;
 		panel_10.add(txtLength, gbc_txtLength);
 		txtLength.setColumns(10);
-		
+
 		JLabel lblLongueurSuite = new JLabel("longueur suite : ");
 		GridBagConstraints gbc_lblLongueurSuite = new GridBagConstraints();
 		gbc_lblLongueurSuite.insets = new Insets(0, 0, 0, 5);
 		gbc_lblLongueurSuite.gridx = 1;
 		gbc_lblLongueurSuite.gridy = 5;
 		panel_10.add(lblLongueurSuite, gbc_lblLongueurSuite);
-		
+
 		txtNombre = new JTextField();
 		txtNombre.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtNombre.getText().equals("Nombre"))
+				if (txtNombre.getText().equals("Nombre"))
 					txtNombre.setText("");
 			}
 		});
@@ -428,11 +425,12 @@ public class IHM {
 		gbc_txtNombre.gridy = 5;
 		panel_10.add(txtNombre, gbc_txtNombre);
 		txtNombre.setColumns(10);
-		
+
 		JButton btnGenere = new JButton("Genere");
 		btnGenere.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtSuiteChiffrante.setText(handler.genere(txtNombre.getText(), txtLfsr.getText(), txtLength.getText(), txtRetroaction.getText(), txtBase.getText()));
+				txtSuiteChiffrante.setText(handler.genere(txtNombre.getText(), txtLfsr.getText(), txtLength.getText(), txtRetroaction.getText(),
+						txtBase.getText()));
 				txtSuiteChiffranteMassey.setText(txtSuiteChiffrante.getText());
 			}
 		});
@@ -441,7 +439,7 @@ public class IHM {
 		gbc_btnGenere.gridx = 4;
 		gbc_btnGenere.gridy = 5;
 		panel_10.add(btnGenere, gbc_btnGenere);
-		
+
 		JButton btnNext = new JButton("Next gen");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -452,16 +450,16 @@ public class IHM {
 		gbc_btnNext.gridx = 6;
 		gbc_btnNext.gridy = 5;
 		panel_10.add(btnNext, gbc_btnNext);
-		
+
 		JPanel panel_9 = new JPanel();
 		panelLFSR.add(panel_9);
 		GridBagLayout gbl_panel_9 = new GridBagLayout();
-		gbl_panel_9.columnWidths = new int[]{0, 0};
-		gbl_panel_9.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel_9.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_9.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_9.columnWidths = new int[] { 0, 0 };
+		gbl_panel_9.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panel_9.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel_9.rowWeights = new double[] { 1.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_9.setLayout(gbl_panel_9);
-		
+
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
@@ -470,23 +468,25 @@ public class IHM {
 		gbc_panel.gridy = 0;
 		panel_9.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0};
-		gbl_panel.rowHeights = new int[]{101, 48, 0};
-		gbl_panel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel.rowHeights = new int[] { 101, 48, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-		
+
 		final JTextField textAreaDragDrop = new JTextField();
 		textAreaDragDrop.setHorizontalAlignment(SwingConstants.CENTER);
 		textAreaDragDrop.setText("Drag and Drop the file to crypt here");
-		new FileDrop( System.out, textAreaDragDrop, new FileDrop.Listener() {   
-		 	public void filesDropped( java.io.File[] files ){
-		 		for( int i = 0; i < files.length; i++ ){  
-		 			try{   textAreaDragDrop.setText(( files[i].getCanonicalPath() ));
-		             } catch( java.io.IOException e ) {}
-		         }  
-		     }   
-		 });
+		new FileDrop(System.out, textAreaDragDrop, new FileDrop.Listener() {
+			public void filesDropped(java.io.File[] files) {
+				for (int i = 0; i < files.length; i++) {
+					try {
+						textAreaDragDrop.setText((files[i].getCanonicalPath()));
+					} catch (java.io.IOException e) {
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_textAreaDragDrop = new GridBagConstraints();
 		gbc_textAreaDragDrop.insets = new Insets(0, 0, 5, 0);
 		gbc_textAreaDragDrop.gridwidth = 2;
@@ -494,16 +494,23 @@ public class IHM {
 		gbc_textAreaDragDrop.gridx = 0;
 		gbc_textAreaDragDrop.gridy = 0;
 		panel.add(textAreaDragDrop, gbc_textAreaDragDrop);
-		
+
 		JButton btnCrypt = new JButton("Crypt");
 		btnCrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String output = JOptionPane.showInputDialog("Entrez le chemin du fichier de sortie : \n "+textAreaDragDrop.getText()+"\n Laissez vide pour avoir le chemin par default");
-				if(output.isEmpty()){
-					File file = new File(textAreaDragDrop.getText());
-					output = file.getParent()+File.separator+"encrypted"+file.getName();
+				File file = new File(textAreaDragDrop.getText());
+				String s = file.getParent() + File.separator + "encrypted" + file.getName();
+				String output = JOptionPane.showInputDialog("Entrez le chemin du fichier de sortie : \n " + textAreaDragDrop.getText()
+						+ "\n Validez pour avoir le chemin par default", s);
+				if (output != null) {
+					// Bouton annuler == null
+					if (output.isEmpty()) {
+						s = file.getParent() + File.separator + "encrypted" + file.getName();
+						output = file.getParent() + File.separator + "encrypted" + file.getName();
+					}
+					handler.crypt(txtLfsr.getText(), txtLength.getText(), txtRetroaction.getText(), txtBase.getText(), textAreaDragDrop.getText(),
+							output);
 				}
-				handler.crypt(txtLfsr.getText(), txtLength.getText(), txtRetroaction.getText(), txtBase.getText(), textAreaDragDrop.getText(), output);
 			}
 		});
 		GridBagConstraints gbc_btnCrypt = new GridBagConstraints();
@@ -511,23 +518,29 @@ public class IHM {
 		gbc_btnCrypt.gridx = 0;
 		gbc_btnCrypt.gridy = 1;
 		panel.add(btnCrypt, gbc_btnCrypt);
-		
+
 		JButton btnDecrypt = new JButton("Decrypt");
 		btnDecrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String output = JOptionPane.showInputDialog("Entrez le chemin du fichier de sortie : \n "+textAreaDragDrop.getText()+"\n Laissez vide pour avoir le chemin par default");
-				if(output.isEmpty()){
-					File file = new File(textAreaDragDrop.getText());
-					output = file.getParent()+File.separator+"decrypted"+file.getName();
+				File file = new File(textAreaDragDrop.getText());
+				String s = file.getParent() + File.separator + "decrypted" + file.getName();
+				String output = JOptionPane.showInputDialog("Entrez le chemin du fichier de sortie : \n " + textAreaDragDrop.getText()
+						+ "\n Validez pour avoir le chemin par default", s);
+				if (output != null) {
+					if (output.isEmpty()) {
+
+						output = file.getParent() + File.separator + "decrypted" + file.getName();
+					}
+					handler.decrypt(txtLfsr.getText(), txtLength.getText(), txtRetroaction.getText(), txtBase.getText(), textAreaDragDrop.getText(),
+							output);
 				}
-				handler.decrypt(txtLfsr.getText(), txtLength.getText(), txtRetroaction.getText(), txtBase.getText(), textAreaDragDrop.getText(), output);
 			}
 		});
 		GridBagConstraints gbc_btnDecrypt = new GridBagConstraints();
 		gbc_btnDecrypt.gridx = 1;
 		gbc_btnDecrypt.gridy = 1;
 		panel.add(btnDecrypt, gbc_btnDecrypt);
-		
+
 		JLabel lblSortie = new JLabel("Suite Chiffrante");
 		GridBagConstraints gbc_lblSortie = new GridBagConstraints();
 		gbc_lblSortie.anchor = GridBagConstraints.NORTH;
@@ -535,7 +548,7 @@ public class IHM {
 		gbc_lblSortie.gridx = 0;
 		gbc_lblSortie.gridy = 1;
 		panel_9.add(lblSortie, gbc_lblSortie);
-		
+
 		txtSuiteChiffrante = new JTextField();
 		txtSuiteChiffrante.setHorizontalAlignment(SwingConstants.CENTER);
 		txtSuiteChiffrante.setEditable(false);
@@ -545,20 +558,20 @@ public class IHM {
 		gbc_txtSuiteChiffrante.gridy = 2;
 		panel_9.add(txtSuiteChiffrante, gbc_txtSuiteChiffrante);
 		txtSuiteChiffrante.setColumns(10);
-		
+
 		JPanel panelMassey = new JPanel();
 		tabbedPane.addTab("Massey", null, panelMassey, null);
 		panelMassey.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		JPanel panel_8 = new JPanel();
 		panelMassey.add(panel_8);
 		GridBagLayout gbl_panel_8 = new GridBagLayout();
-		gbl_panel_8.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_8.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_8.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_8.rowWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_8.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel_8.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel_8.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_8.rowWeights = new double[] { 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		panel_8.setLayout(gbl_panel_8);
-		
+
 		JLabel lblSuiteChiffrante = new JLabel("Suite Chiffrante : ");
 		GridBagConstraints gbc_lblSuiteChiffrante = new GridBagConstraints();
 		gbc_lblSuiteChiffrante.insets = new Insets(0, 0, 5, 5);
@@ -566,8 +579,15 @@ public class IHM {
 		gbc_lblSuiteChiffrante.gridx = 0;
 		gbc_lblSuiteChiffrante.gridy = 0;
 		panel_8.add(lblSuiteChiffrante, gbc_lblSuiteChiffrante);
-		
+
 		txtSuiteChiffranteMassey = new JTextField();
+		txtSuiteChiffranteMassey.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if (txtSuiteChiffranteMassey.getText().equals("Suite Chiffrante"))
+					txtSuiteChiffranteMassey.setText("");
+			}
+		});
 		txtSuiteChiffranteMassey.setText("Suite Chiffrante");
 		GridBagConstraints gbc_txtSuiteChiffranteMassey = new GridBagConstraints();
 		gbc_txtSuiteChiffranteMassey.insets = new Insets(0, 0, 5, 0);
@@ -576,18 +596,19 @@ public class IHM {
 		gbc_txtSuiteChiffranteMassey.gridy = 0;
 		panel_8.add(txtSuiteChiffranteMassey, gbc_txtSuiteChiffranteMassey);
 		txtSuiteChiffranteMassey.setColumns(10);
-		
+
 		txtFichierCrypter = new JTextField();
-		new FileDrop( System.out, txtFichierCrypter, new FileDrop.Listener() {   
-		 	public void filesDropped( java.io.File[] files ){
-		 		for( int i = 0; i < files.length; i++ ){  
-		 			try{   
-		 				txtFichierCrypter.setText(( files[i].getCanonicalPath() ));
-		 				getFileEnding(files[i].getCanonicalPath());
-		             } catch( java.io.IOException e ) {}
-		         }  
-		     }   
-		 });
+		new FileDrop(System.out, txtFichierCrypter, new FileDrop.Listener() {
+			public void filesDropped(java.io.File[] files) {
+				for (int i = 0; i < files.length; i++) {
+					try {
+						txtFichierCrypter.setText((files[i].getCanonicalPath()));
+						getFileEnding(files[i].getCanonicalPath());
+					} catch (java.io.IOException e) {
+					}
+				}
+			}
+		});
 		txtFichierCrypter.setHorizontalAlignment(SwingConstants.CENTER);
 		txtFichierCrypter.setText("Deplacer le fichier crypter ici");
 		GridBagConstraints gbc_txtFichierCrypter = new GridBagConstraints();
@@ -599,7 +620,7 @@ public class IHM {
 		gbc_txtFichierCrypter.gridy = 1;
 		panel_8.add(txtFichierCrypter, gbc_txtFichierCrypter);
 		txtFichierCrypter.setColumns(10);
-		
+
 		JPanel panel_12 = new JPanel();
 		GridBagConstraints gbc_panel_12 = new GridBagConstraints();
 		gbc_panel_12.insets = new Insets(0, 0, 5, 0);
@@ -609,53 +630,65 @@ public class IHM {
 		gbc_panel_12.gridy = 5;
 		panel_8.add(panel_12, gbc_panel_12);
 		panel_12.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		JButton btnRecuptLfsr = new JButton("Recupt LFSR");
 		btnRecuptLfsr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LFSR lfsr = MasseyCore.findLFSR(txtSuiteChiffranteMassey.getText());
 				txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
 				txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getR()));
+				lfsr.reset();
+				txtSuiteOutMassey.setText(lfsr.genere(50));
+				txtLongueur.setText(lfsr.getLongeur() + "");
 			}
 		});
 		panel_12.add(btnRecuptLfsr);
-		
+
 		JButton btnDecrypter = new JButton("Decrypter");
 		btnDecrypter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(masseyFileType.getSelectedItem().equals("") )
-					JOptionPane.showMessageDialog(null, "Le type de fichier ne peut être vide",  "Type error", JOptionPane.ERROR_MESSAGE);
-				else{
-				String output = JOptionPane.showInputDialog("Entrez le chemin du fichier de sortie : \n "+txtFichierCrypter.getText()+"\n Laissez vide pour avoir le chemin par default");
-				if(output.isEmpty()){
+				if (masseyFileType.getSelectedItem().equals(""))
+					JOptionPane.showMessageDialog(null, "Le type de fichier ne peut être vide", "Type error", JOptionPane.ERROR_MESSAGE);
+				else {
 					File file = new File(txtFichierCrypter.getText());
-					output = file.getParent()+File.separator+"MasseyDecrypted"+file.getName();
-				}
-				
-					LFSR lfsr = handler.decryptMassey(txtFichierCrypter.getText(), output, (String)masseyFileType.getSelectedItem());
-					txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
-					txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getR()));
 
+					String s = file.getParent() + File.separator + "MasseyDecrypted" + file.getName();
+					String output = JOptionPane.showInputDialog("Entrez le chemin du fichier de sortie : \n " + txtFichierCrypter.getText()
+							+ "\n Validez pour avoir le chemin par default", s);
+					if (output != null) {
+						if (output.isEmpty()) {
+							output = file.getParent() + File.separator + "MasseyDecrypted" + file.getName();
+						}
+
+						LFSR lfsr = handler.decryptMassey(txtFichierCrypter.getText(), output, (String) masseyFileType.getSelectedItem());
+						if (lfsr != null) {
+							txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
+							txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getR()));
+							lfsr.reset();
+							txtSuiteOutMassey.setText(lfsr.genere(50));
+							txtLongueur.setText(lfsr.getLongeur() + "");
+						}
+					}
 				}
-				
+
 			}
 		});
 		panel_12.add(btnDecrypter);
-		
+
 		masseyFileType = new JComboBox();
 		masseyFileType.setToolTipText("Selectionnez le type de fichier si necessaire.");
-		masseyFileType.setModel(new DefaultComboBoxModel(new String[] {"", "pdf", "png", "jpg", "jpeg", "doc", "xml"}));
+		masseyFileType.setModel(new DefaultComboBoxModel(new String[] { "", "pdf", "png", "jpg", "jpeg", "doc", "xml" }));
 		panel_12.add(masseyFileType);
-		
+
 		JPanel panel_11 = new JPanel();
 		panelMassey.add(panel_11);
 		GridBagLayout gbl_panel_11 = new GridBagLayout();
-		gbl_panel_11.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_panel_11.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel_11.columnWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_11.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_11.columnWidths = new int[] { 0, 0, 0, 0 };
+		gbl_panel_11.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_panel_11.columnWeights = new double[] { 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel_11.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_11.setLayout(gbl_panel_11);
-		
+
 		JLabel lblPolynomeDeRetroaction = new JLabel("Polynome de retroaction : ");
 		GridBagConstraints gbc_lblPolynomeDeRetroaction = new GridBagConstraints();
 		gbc_lblPolynomeDeRetroaction.insets = new Insets(0, 0, 5, 5);
@@ -663,7 +696,7 @@ public class IHM {
 		gbc_lblPolynomeDeRetroaction.gridx = 0;
 		gbc_lblPolynomeDeRetroaction.gridy = 1;
 		panel_11.add(lblPolynomeDeRetroaction, gbc_lblPolynomeDeRetroaction);
-		
+
 		txtPolynomeDeRetroaction = new JTextField();
 		txtPolynomeDeRetroaction.setEditable(false);
 		txtPolynomeDeRetroaction.setText("Polynome de retroaction");
@@ -674,57 +707,95 @@ public class IHM {
 		gbc_txtPolynomeDeRetroaction.gridy = 1;
 		panel_11.add(txtPolynomeDeRetroaction, gbc_txtPolynomeDeRetroaction);
 		txtPolynomeDeRetroaction.setColumns(10);
-		
+
 		JLabel lblPolynomeDeSortie = new JLabel("Polynome d'initialisation : ");
 		GridBagConstraints gbc_lblPolynomeDeSortie = new GridBagConstraints();
 		gbc_lblPolynomeDeSortie.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
+		gbc_lblPolynomeDeSortie.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPolynomeDeSortie.gridx = 0;
 		gbc_lblPolynomeDeSortie.gridy = 2;
 		panel_11.add(lblPolynomeDeSortie, gbc_lblPolynomeDeSortie);
-		
+
 		txtPolynomeDeSortie = new JTextField();
 		txtPolynomeDeSortie.setEditable(false);
 		txtPolynomeDeSortie.setText("Polynome");
 		GridBagConstraints gbc_txtPolynomeDeSortie = new GridBagConstraints();
-		gbc_txtPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
+		gbc_txtPolynomeDeSortie.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPolynomeDeSortie.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtPolynomeDeSortie.gridx = 1;
 		gbc_txtPolynomeDeSortie.gridy = 2;
 		panel_11.add(txtPolynomeDeSortie, gbc_txtPolynomeDeSortie);
 		txtPolynomeDeSortie.setColumns(10);
+
+		JLabel lblSuiteChiffrante_1 = new JLabel("Suite Chiffrante :");
+		GridBagConstraints gbc_lblSuiteChiffrante_1 = new GridBagConstraints();
+		gbc_lblSuiteChiffrante_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSuiteChiffrante_1.anchor = GridBagConstraints.EAST;
+		gbc_lblSuiteChiffrante_1.gridx = 0;
+		gbc_lblSuiteChiffrante_1.gridy = 3;
+		panel_11.add(lblSuiteChiffrante_1, gbc_lblSuiteChiffrante_1);
+
+		txtSuiteOutMassey = new JTextField();
+		txtSuiteOutMassey.setEditable(false);
+		txtSuiteOutMassey.setText("Suite Chiffrante");
+		GridBagConstraints gbc_txtSuiteOutMassey = new GridBagConstraints();
+		gbc_txtSuiteOutMassey.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSuiteOutMassey.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSuiteOutMassey.gridx = 1;
+		gbc_txtSuiteOutMassey.gridy = 3;
+		panel_11.add(txtSuiteOutMassey, gbc_txtSuiteOutMassey);
+		txtSuiteOutMassey.setColumns(10);
+
+		JLabel lblLongueur_1 = new JLabel("Longueur :");
+		GridBagConstraints gbc_lblLongueur_1 = new GridBagConstraints();
+		gbc_lblLongueur_1.anchor = GridBagConstraints.EAST;
+		gbc_lblLongueur_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblLongueur_1.gridx = 0;
+		gbc_lblLongueur_1.gridy = 4;
+		panel_11.add(lblLongueur_1, gbc_lblLongueur_1);
+
+		txtLongueur = new JTextField();
+		txtLongueur.setEditable(false);
+		txtLongueur.setText("Longueur");
+		GridBagConstraints gbc_txtLongueur = new GridBagConstraints();
+		gbc_txtLongueur.insets = new Insets(0, 0, 0, 5);
+		gbc_txtLongueur.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLongueur.gridx = 1;
+		gbc_txtLongueur.gridy = 4;
+		panel_11.add(txtLongueur, gbc_txtLongueur);
+		txtLongueur.setColumns(10);
 	}
-	
-	private String getFileEnding(String path){
-		if(path.endsWith("pdf")){
+
+	private String getFileEnding(String path) {
+		if (path.endsWith("pdf")) {
 			masseyFileType.setSelectedItem("pdf");
 			return "pdf";
 		}
-		if(path.endsWith("png")){
+		if (path.endsWith("png")) {
 			masseyFileType.setSelectedItem("png");
 			return "png";
 		}
-		if(path.endsWith("jpg")){
+		if (path.endsWith("jpg")) {
 			masseyFileType.setSelectedItem("jpg");
 			return "jpg";
 		}
-		if(path.endsWith("doc")){
+		if (path.endsWith("doc")) {
 			masseyFileType.setSelectedItem("doc");
 			return "doc";
 		}
-		if(path.endsWith("xml")){
+		if (path.endsWith("xml")) {
 			masseyFileType.setSelectedItem("xml");
 			return "xml";
 		}
-		if(path.endsWith("jpeg")){
+		if (path.endsWith("jpeg")) {
 			masseyFileType.setSelectedItem("jpeg");
 			return "jpeg";
 		}
-		if(path.endsWith("png")){
+		if (path.endsWith("png")) {
 			masseyFileType.setSelectedItem("png");
 			return "png";
 		}
-		return ""	;
+		return "";
 	}
 
 }

@@ -209,9 +209,10 @@ public class IHMHandler {
 		int l = checkEncryptedFile(f, header);
 		if (l > 0)
 			System.out.println("Le fichier est crypter");
-		else
+		else{
 			System.out.println("Le fichier est en clair");
-
+			return null;
+		}
 		File out = new File(output);
 		if (!out.exists())
 			try {
@@ -250,7 +251,6 @@ public class IHMHandler {
 	}
 
 	public static int checkEncryptedFile(byte[] f, byte[] b) {
-			System.out.println("Find pdf file");
 			for (int i = 0; i < b.length; i++)
 				if (b[i] != f[i])
 					return b.length;

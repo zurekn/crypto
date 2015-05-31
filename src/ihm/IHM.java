@@ -53,6 +53,7 @@ public class IHM {
 	private JTextField txtPolynomeDeSortie;
 	@SuppressWarnings("rawtypes")
 	private JComboBox masseyFileType;
+	private JTextField txtSuiteOutMassey;
 
 	/**
 	 * Launch the application.
@@ -633,6 +634,8 @@ public class IHM {
 				LFSR lfsr = MasseyCore.findLFSR(txtSuiteChiffranteMassey.getText());
 				txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
 				txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
+				lfsr.reset();
+				txtSuiteOutMassey.setText(lfsr.genere(50));
 			}
 		});
 		panel_12.add(btnRecuptLfsr);
@@ -656,6 +659,8 @@ public class IHM {
 						LFSR lfsr = handler.decryptMassey(txtFichierCrypter.getText(), output, (String) masseyFileType.getSelectedItem());
 						txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
 						txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
+						lfsr.reset();
+						txtSuiteOutMassey.setText(lfsr.genere(50));
 					}
 				}
 
@@ -672,9 +677,9 @@ public class IHM {
 		panelMassey.add(panel_11);
 		GridBagLayout gbl_panel_11 = new GridBagLayout();
 		gbl_panel_11.columnWidths = new int[] { 0, 0, 0, 0 };
-		gbl_panel_11.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panel_11.rowHeights = new int[] { 0, 0, 0, 0, 0 };
 		gbl_panel_11.columnWeights = new double[] { 0.0, 1.0, 1.0, Double.MIN_VALUE };
-		gbl_panel_11.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel_11.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_11.setLayout(gbl_panel_11);
 
 		JLabel lblPolynomeDeRetroaction = new JLabel("Polynome de retroaction : ");
@@ -699,7 +704,7 @@ public class IHM {
 		JLabel lblPolynomeDeSortie = new JLabel("Polynome d'initialisation : ");
 		GridBagConstraints gbc_lblPolynomeDeSortie = new GridBagConstraints();
 		gbc_lblPolynomeDeSortie.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
+		gbc_lblPolynomeDeSortie.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPolynomeDeSortie.gridx = 0;
 		gbc_lblPolynomeDeSortie.gridy = 2;
 		panel_11.add(lblPolynomeDeSortie, gbc_lblPolynomeDeSortie);
@@ -708,12 +713,31 @@ public class IHM {
 		txtPolynomeDeSortie.setEditable(false);
 		txtPolynomeDeSortie.setText("Polynome");
 		GridBagConstraints gbc_txtPolynomeDeSortie = new GridBagConstraints();
-		gbc_txtPolynomeDeSortie.insets = new Insets(0, 0, 0, 5);
+		gbc_txtPolynomeDeSortie.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPolynomeDeSortie.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtPolynomeDeSortie.gridx = 1;
 		gbc_txtPolynomeDeSortie.gridy = 2;
 		panel_11.add(txtPolynomeDeSortie, gbc_txtPolynomeDeSortie);
 		txtPolynomeDeSortie.setColumns(10);
+		
+		JLabel lblSuiteChiffrante_1 = new JLabel("Suite Chiffrante :");
+		GridBagConstraints gbc_lblSuiteChiffrante_1 = new GridBagConstraints();
+		gbc_lblSuiteChiffrante_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblSuiteChiffrante_1.anchor = GridBagConstraints.EAST;
+		gbc_lblSuiteChiffrante_1.gridx = 0;
+		gbc_lblSuiteChiffrante_1.gridy = 3;
+		panel_11.add(lblSuiteChiffrante_1, gbc_lblSuiteChiffrante_1);
+		
+		txtSuiteOutMassey = new JTextField();
+		txtSuiteOutMassey.setEditable(false);
+		txtSuiteOutMassey.setText("Suite Chiffrante");
+		GridBagConstraints gbc_txtSuiteOutMassey = new GridBagConstraints();
+		gbc_txtSuiteOutMassey.insets = new Insets(0, 0, 0, 5);
+		gbc_txtSuiteOutMassey.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSuiteOutMassey.gridx = 1;
+		gbc_txtSuiteOutMassey.gridy = 3;
+		panel_11.add(txtSuiteOutMassey, gbc_txtSuiteOutMassey);
+		txtSuiteOutMassey.setColumns(10);
 	}
 
 	private String getFileEnding(String path) {

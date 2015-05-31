@@ -240,6 +240,7 @@ public class IHM {
 		panel_4.add(label, gbc_label);
 
 		JButton btnCalculer = new JButton("Calculer");
+		btnCalculer.setToolTipText("Calcul l'opération sélectionné");
 		btnCalculer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String result = handler.calculate(txtPolynome.getText(), txtPolynome_1.getText(), txtPuissance.getText());
@@ -329,6 +330,7 @@ public class IHM {
 		panel_10.add(lblLfsr, gbc_lblLfsr);
 
 		txtLfsr = new JTextField();
+		txtLfsr.setToolTipText("Valeur des bits d'initialisations");
 		txtLfsr.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -380,6 +382,7 @@ public class IHM {
 		panel_10.add(lblRetroaction, gbc_lblRetroaction);
 
 		txtRetroaction = new JTextField();
+		txtRetroaction.setToolTipText("Polynome de retroaction sous la forme suivance : 0,1,2 pour le polynome 1+x+x²");
 		txtRetroaction.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -406,6 +409,7 @@ public class IHM {
 		panel_10.add(lblLongueur, gbc_lblLongueur);
 
 		txtLength = new JTextField();
+		txtLength.setToolTipText("Longueur du LFSR");
 		txtLength.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -432,6 +436,7 @@ public class IHM {
 		panel_10.add(lblLongueurSuite, gbc_lblLongueurSuite);
 
 		txtNombre = new JTextField();
+		txtNombre.setToolTipText("Nombre de bits à generé.");
 		txtNombre.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -450,6 +455,7 @@ public class IHM {
 		txtNombre.setColumns(10);
 
 		JButton btnGenere = new JButton("Générer les premiers bits");
+		btnGenere.setToolTipText("Generation des X premiers bits");
 		btnGenere.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtSuiteChiffrante.setText(handler.genere(txtNombre.getText(), txtLfsr.getText(), txtLength.getText(), txtRetroaction.getText(),
@@ -464,6 +470,7 @@ public class IHM {
 		panel_10.add(btnGenere, gbc_btnGenere);
 
 		JButton btnNext = new JButton("Générer les prochains bits");
+		btnNext.setToolTipText("Generation des bits suivants les X premiers");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				txtSuiteChiffrante.setText(handler.nextGen(txtNombre.getText()));
@@ -519,6 +526,7 @@ public class IHM {
 		panel.add(textAreaDragDrop, gbc_textAreaDragDrop);
 
 		JButton btnCrypt = new JButton("Crypter");
+		btnCrypt.setToolTipText("Crypter le fichier passer dans le champs précedent");
 		btnCrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = new File(textAreaDragDrop.getText());
@@ -543,6 +551,7 @@ public class IHM {
 		panel.add(btnCrypt, gbc_btnCrypt);
 
 		JButton btnDecrypt = new JButton("Décrypter");
+		btnDecrypt.setToolTipText("Décrypter le fichier passer dans le champs précedent");
 		btnDecrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File file = new File(textAreaDragDrop.getText());
@@ -604,6 +613,7 @@ public class IHM {
 		panel_8.add(lblSuiteChiffrante, gbc_lblSuiteChiffrante);
 
 		txtSuiteChiffranteMassey = new JTextField();
+		txtSuiteChiffranteMassey.setToolTipText("Valeur de la suite chiffrante du LFSR à trouver");
 		txtSuiteChiffranteMassey.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -655,6 +665,7 @@ public class IHM {
 		panel_12.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JButton btnRecuptLfsr = new JButton("Récupérer LFSR");
+		btnRecuptLfsr.setToolTipText("Récupère le LFSR de la suite chiffrante mis au dessus");
 		btnRecuptLfsr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LFSR lfsr = MasseyCore.findLFSR(txtSuiteChiffranteMassey.getText());
@@ -668,6 +679,7 @@ public class IHM {
 		panel_12.add(btnRecuptLfsr);
 
 		JButton btnDecrypter = new JButton("Décrypter");
+		btnDecrypter.setToolTipText("Décrypte le fichier mis dans le champs fichier ");
 		btnDecrypter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (masseyFileType.getSelectedItem().equals(""))

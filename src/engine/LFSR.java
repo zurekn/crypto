@@ -1,7 +1,5 @@
 package engine;
 
-import java.util.Arrays;
-
 import io.FileRW;
 
 public class LFSR {
@@ -9,11 +7,9 @@ public class LFSR {
 
 	private int longueur;
 	private int P;
+	private int[] coefficients;
 	private int etat;
 	private int R;
-
-	private int[] coefficients;
-	private int etatInit;
 
 	private void init(int[] coefficients, int etat) {
 		this.P = 0;
@@ -30,15 +26,27 @@ public class LFSR {
 
 	public LFSR(int longueur, int[] coefficients, int etat) {
 		this.longueur = longueur;
-		this.R = 0;
-		this.etat = etat;
 		this.coefficients = coefficients;
-		this.etatInit = etat;
+		String s = "";
+		for(int i = Integer.SIZE ; i >= 0 ; i--){
+			if(i >= longueur)
+				s+="0";
+			else
+				s+="1";
+		}
+		etat = Integer.parseInt(s,2) & etat;
+		
+		this.etat = etat;
+		this.R = etat;
 		init(coefficients, etat);
 	}
 
-	public int getEtatInit(){
-		return etatInit;
+	public int[] getCoef() {
+		return coefficients;
+	}
+
+	public int getR(){
+		return R;
 	}
 	
 	public int getLongeur(){
@@ -46,12 +54,8 @@ public class LFSR {
 	}
 	
 	public void reset() {
-		init(coefficients, etatInit);
+		etat = R;
 		System.out.println("Lfsr reinitialised");
-	}
-
-	public int[] getCoef(){
-		return coefficients;
 	}
 	
 	/**
@@ -83,8 +87,8 @@ public class LFSR {
 
 		if (DEBUG > 2) {
 			System.out
-					.println("Nouvel etat :\t" + Integer.toBinaryString(etat));
-			System.out.println("Bit � ins�rer :\t"
+					.println("Nouvel état :\t" + Integer.toBinaryString(etat));
+			System.out.println("Bit à insérer :\t"
 					+ Integer.toBinaryString(nouveauBit << (longueur - 1))
 					+ "\t"
 					+ Integer.toBinaryString(nouveauBit << (longueur - 1))
@@ -122,7 +126,7 @@ public class LFSR {
 		while(i < max && period ==0){
 			retroaction();
 			
-			if(etat == etatInit)
+			if(etat == R)
 				period = i+1;
 			
 			i++;

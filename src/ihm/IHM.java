@@ -26,24 +26,15 @@ import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
-import java.awt.datatransfer.DataFlavor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.List;
-
 import javax.swing.SwingConstants;
-import javax.swing.JTextArea;
-
 import polynomial.Polynomial;
 import engine.LFSR;
 import engine.MasseyCore;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -100,7 +91,7 @@ public class IHM {
 		MasseyCore.initCore();
 		
 		frmCrypto = new JFrame();
-		frmCrypto.setTitle("Crypto");
+		frmCrypto.setTitle("Mini projet crypto");
 		frmCrypto.setBounds(100, 100, 673, 448);
 		frmCrypto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -108,7 +99,7 @@ public class IHM {
 		frmCrypto.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel panelPolynome = new JPanel();
-		tabbedPane.addTab("Polynome", null, panelPolynome, null);
+		tabbedPane.addTab("Polynômes", null, panelPolynome, null);
 		panelPolynome.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_1 = new JPanel();
@@ -118,38 +109,38 @@ public class IHM {
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2);
 		
-		JLabel lblPolynome = new JLabel("Polynome 1 :");
+		JLabel lblPolynome = new JLabel("Polynôme 1 :");
 		panel_2.add(lblPolynome);
 		
 		txtPolynome = new JTextField();
 		txtPolynome.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtPolynome.getText().equals("Polynome 1"))
+				if(txtPolynome.getText().equals("Polynôme 1"))
 					txtPolynome.setText("");
 			}
 		});
-		txtPolynome.setToolTipText("Mettez les indices sÃ©parÃ©s par une virgule , exemple (1,5,6) donne (X+Xâ�µ+Xâ�¶)");
-		txtPolynome.setText("Polynome 1");
+		txtPolynome.setToolTipText("Mettez les indices séparés par une virgule , exemple (1,5,6) donne (X+X⁵+X⁶)");
+		txtPolynome.setText("Polynôme 1");
 		panel_2.add(txtPolynome);
 		txtPolynome.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
 		panel_1.add(panel_3);
 		
-		JLabel lblPolynome_1 = new JLabel("Polynome 2 :");
+		JLabel lblPolynome_1 = new JLabel("Polynôme 2 :");
 		panel_3.add(lblPolynome_1);
 		
 		txtPolynome_1 = new JTextField();
 		txtPolynome_1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtPolynome_1.getText().equals("Polynome 2"))
+				if(txtPolynome_1.getText().equals("Polynôme 2"))
 					txtPolynome_1.setText("");
 			}
 		});
-		txtPolynome_1.setToolTipText("Mettez les indices sÃ©parÃ©s par une virgule , exemple (1,5,6) donne (X+Xâ�µ+Xâ�¶)");
-		txtPolynome_1.setText("Polynome 2");
+		txtPolynome_1.setToolTipText("Mettez les indices séparés par une virgule , exemple (1,5,6) donne (X+X⁵+X⁶)");
+		txtPolynome_1.setText("Polynôme 2");
 		panel_3.add(txtPolynome_1);
 		txtPolynome_1.setColumns(10);
 		
@@ -168,7 +159,7 @@ public class IHM {
 				handler.setOpperation(arg0.getActionCommand());
 			}
 		});
-		rdbtnAddition.setToolTipText("Addition entre le polynome 1 et 2");
+		rdbtnAddition.setToolTipText("Addition entre les polynômes 1 et 2");
 		rdbtnAddition.setSelected(true);
 		GridBagConstraints gbc_rdbtnAddition = new GridBagConstraints();
 		gbc_rdbtnAddition.anchor = GridBagConstraints.NORTH;
@@ -185,7 +176,7 @@ public class IHM {
 				handler.setOpperation(arg0.getActionCommand());
 			}
 		});
-		rdbtnMultiplication.setToolTipText("Multiplication entre le polynome 1 et 2");
+		rdbtnMultiplication.setToolTipText("Multiplication entre les polynômes 1 et 2");
 		GridBagConstraints gbc_rdbtnMultiplication = new GridBagConstraints();
 		gbc_rdbtnMultiplication.fill = GridBagConstraints.VERTICAL;
 		gbc_rdbtnMultiplication.insets = new Insets(0, 0, 5, 5);
@@ -200,7 +191,7 @@ public class IHM {
 				handler.setOpperation(e.getActionCommand());
 			}
 		});
-		rdbtnModulo.setToolTipText("Modulo du polynome 1, Mettre la valeur du modulo dans la case polynome 2\r\n");
+		rdbtnModulo.setToolTipText("Modulo du polynôme 1, mettre la valeur du modulo dans la case polynôme 2\r\n");
 		GridBagConstraints gbc_rdbtnModulo = new GridBagConstraints();
 		gbc_rdbtnModulo.fill = GridBagConstraints.VERTICAL;
 		gbc_rdbtnModulo.insets = new Insets(0, 0, 5, 5);
@@ -215,7 +206,7 @@ public class IHM {
 				handler.setOpperation(e.getActionCommand());
 			}
 		});
-		rdbtnExponentiation.setToolTipText("Exponentiation du polynome 1, mettre la valeur de l'exponentielle dans la casse polynome 2");
+		rdbtnExponentiation.setToolTipText("Exponentiation du polynôme 1, mettre la valeur de l'exponentielle dans la case polynôme 2");
 		GridBagConstraints gbc_rdbtnExponentiation = new GridBagConstraints();
 		gbc_rdbtnExponentiation.fill = GridBagConstraints.VERTICAL;
 		gbc_rdbtnExponentiation.insets = new Insets(0, 0, 5, 0);
@@ -266,7 +257,7 @@ public class IHM {
 		JPanel panel_6 = new JPanel();
 		panel_5.add(panel_6, BorderLayout.CENTER);
 		
-		JLabel lblResultat = new JLabel("Resultat");
+		JLabel lblResultat = new JLabel("Résultat");
 		panel_6.add(lblResultat);
 		
 		txtPolynomeRes = new JTextField();
@@ -279,7 +270,7 @@ public class IHM {
 		FlowLayout flowLayout = (FlowLayout) panel_7.getLayout();
 		panel_5.add(panel_7, BorderLayout.NORTH);
 		
-		JLabel lblOpperation = new JLabel("Opperation :");
+		JLabel lblOpperation = new JLabel("Opération : ");
 		panel_7.add(lblOpperation);
 		
 		txtP1 = new JTextField();
@@ -290,7 +281,7 @@ public class IHM {
 		
 		txtOpperation = new JTextField();
 		txtOpperation.setEditable(false);
-		txtOpperation.setText("Opperation");
+		txtOpperation.setText("Opérateur");
 		panel_7.add(txtOpperation);
 		txtOpperation.setColumns(10);
 		
@@ -624,7 +615,7 @@ public class IHM {
 			public void actionPerformed(ActionEvent e) {
 				LFSR lfsr = MasseyCore.findLFSR(txtSuiteChiffranteMassey.getText());
 				txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
-				txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
+				txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getR()));
 			}
 		});
 		panel_12.add(btnRecuptLfsr);
@@ -643,7 +634,7 @@ public class IHM {
 				
 					LFSR lfsr = handler.decryptMassey(txtFichierCrypter.getText(), output, (String)masseyFileType.getSelectedItem());
 					txtPolynomeDeRetroaction.setText(new Polynomial(lfsr.getCoef()).toString());
-					txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getEtatInit()));
+					txtPolynomeDeSortie.setText(Integer.toBinaryString(lfsr.getR()));
 
 				}
 				

@@ -85,8 +85,7 @@ public abstract class FileRW {
 		String text = null;
 		try {
 			text = "";
-			InputStream ips = new FileInputStream(
-					"src/res/vigenere-germinalChiffre.txt");
+			InputStream ips = new FileInputStream(filePath);
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader br = new BufferedReader(ipsr);
 			String line;

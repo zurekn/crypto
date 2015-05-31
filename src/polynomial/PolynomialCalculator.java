@@ -73,8 +73,8 @@ public abstract class PolynomialCalculator {
 		for (int j = i; j <= dP; j++)
 			result[j] = p.getValue(j);
 		for (int j = i; j <= dQ; j++)
-			result[j] = q.getValue(j); //TODO demander si on recopie la valeur ou si on fait passer une retenue
-
+			result[j] = q.getValue(j);
+		
 		return new Polynomial(result, true);
 	}
 
@@ -128,7 +128,7 @@ public abstract class PolynomialCalculator {
 					result.addElement(1, n);
 				} catch (ExistingElementException e) {
 					System.err
-							.println("R��criture au lieu de rajout dans le polyn�me");
+							.println("Réécriture au lieu de rajout dans le polynôme");
 					result.setValue(n, 1);
 				}
 				int[] tab = new int[1];

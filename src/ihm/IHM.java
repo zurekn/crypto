@@ -155,9 +155,12 @@ public class IHM {
 		txtPuissance.setText(" Puissance");
 		panel_13.add(txtPuissance);
 		txtPuissance.setColumns(10);
+		
+		JPanel panel_14 = new JPanel();
+		panelPolynome.add(panel_14, BorderLayout.CENTER);
 
 		JPanel panel_4 = new JPanel();
-		panelPolynome.add(panel_4, BorderLayout.CENTER);
+		panel_14.add(panel_4);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
 		gbl_panel_4.columnWidths = new int[] { 162, 162, 162, 162, 0 };
 		gbl_panel_4.rowHeights = new int[] { 101, 93, 0 };

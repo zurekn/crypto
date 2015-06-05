@@ -19,8 +19,8 @@ public class TestBitGeneration {
 		}
 		System.out.println("Nombre de bits générés : " + N);
 
-		System.out.println("Temps moyen : " + (sum / ESSAIES));
-		System.out.println("Vitesse : " + (N/((sum / ESSAIES)/1000000000)));
+		System.out.println("Temps moyen (en ns) : " + (sum / ESSAIES));
+		System.out.println("Vitesse (b/s): " + (N/((sum / ESSAIES)/1000000000)));
 
 	}
 
